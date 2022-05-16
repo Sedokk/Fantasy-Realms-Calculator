@@ -83,7 +83,35 @@ select {
 /* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */
 
 body {
-  padding: 40px;
+  width: 100%;
+}
+
+main {
+  max-width: 90%;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+body {
+  background-color: white;
+}
+
+main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.scheme {
+  background-color: transparent;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  border: 1px black solid;
+  border-radius: 30px;
+  padding: 10px 15px;
+  margin-bottom: 20px;
 }
 
 button span {
@@ -232,6 +260,43 @@ button span {
 .cards__card_wizard {
   border: 1px rgb(206, 0, 196) solid;
   color: rgb(206, 0, 196);
+}
+
+.hand__metrics {
+  margin-bottom: 20px;
+  font-size: 40px;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  color: grey;
+}
+
+.hand__card {
+  border: 2px black solid;
+  border-radius: 30px;
+  padding: 15px 30px;
+  min-width: 500px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.hand__card-name {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 20px;
+  color: red;
+}
+
+.hand__card-power {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 20px;
+  background-color: grey;
+  padding: 5px;
+  border-radius: 50%;
 }
 
 @media (prefers-reduced-motion: reduce) {
