@@ -262,11 +262,23 @@ button span {
   color: rgb(206, 0, 196);
 }
 
+.hand {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
 .hand__metrics {
   margin-bottom: 20px;
   font-size: 40px;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   color: grey;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
 }
 
 .hand__card {
@@ -283,12 +295,17 @@ button span {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.hand__card:last-child {
+  margin-bottom: 0;
 }
 
 .hand__card-name {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 20px;
-  color: red;
+  color: black;
 }
 
 .hand__card-power {
