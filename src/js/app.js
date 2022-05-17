@@ -7,20 +7,25 @@ const cardsAmount = document.querySelector('.hand__cards-amount');
 
 function onCardClick(e) {
 
-    if (isSevenCards()) {
+    if (handNode.childNodes.length < 7) {
 
         createCard(e)
 
     }
-    
-    cardsAmount.innerText = handNode.childNodes.length;
 
-    console.log(handNode.childNodes.length);
+
+    //=========================
+    //Counts amount of cards in hand
+    const nodesInHand = handNode.childNodes;
+    const cardsInHand = [...nodesInHand].filter(e => {
+        return e.classList.contains('hand__card')
+    })
+    cardsAmount.innerText = cardsInHand.length;
+    //===========================
+
+    console.log();
 }
 
-function isSevenCards() {
-    return handNode.childNodes.length < 7
-}
 
 function createCard(e) {
     const name = e.target.innerText.replace(/\d/g, '')
