@@ -9,11 +9,8 @@ const handArr = []
 function onCardClick(e) {
 
     if (handNode.childNodes.length < 7) {
-
         createCard(e)
-
     }
-
 
     //=========================
     //Counts amount of cards in hand
@@ -45,7 +42,6 @@ function createCard(e) {
         return
     }
        
-
     const handBlock = document.createElement('div')
     const handName = document.createElement('span')
     const handValue = document.createElement('span')
@@ -56,7 +52,6 @@ function createCard(e) {
     handBlock.classList.add('hand__card')
     handName.classList.add('hand__card-name')
     handValue.classList.add('hand__card-power')
-
     handBlock.prepend(handName)
     handBlock.append(handValue)
     handNode.prepend(handBlock)
