@@ -1,0 +1,132 @@
+
+body {
+    background-color: white;
+}
+
+main {
+    display: flex;
+    justify-content: space-between;
+}
+
+.scheme {
+    background-color: transparent;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    border: 1px black solid;
+    border-radius: 30px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+}
+
+button span {
+    background-color: lightgray;
+    padding: 4px 6px;
+    border-radius: 15px;
+    margin-left: 10px;
+    color: black;
+}
+
+.cards {
+    max-width: 60%;
+	&__suit-wrapper {
+        margin-bottom: 10px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+	&__suit {
+        font-size: 20px;
+        font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+        &_army {
+            color: rgb(66, 66, 66);
+        }
+        &_artifact {
+            color: rgb(255, 115, 28);
+        }
+        &_beast {
+            color: rgb(45, 194, 0);
+        }
+        &_flame {
+            color: rgb(220, 70, 0);
+        }
+        &_flood {
+            color: rgb(0, 43, 144);
+        }
+        &_land {
+            color: rgb(71, 37, 0);
+        }
+        &_leader {
+            color: rgb(118, 0, 209);
+        }
+        &_weapon {
+            color: rgb(117, 117, 117);
+        }
+        &_weather {
+            color: rgb(82, 170, 252);
+        }
+        &_wild {
+            color: rgb(188, 188, 188);
+        }
+        &_wizard {
+            color: rgb(206, 0, 196);
+        }
+    }
+	&__list {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 10px 10px;
+        flex-wrap: wrap;
+    }
+	&__card {
+        font-size: 20px;
+        font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+        border: 1px black solid;
+        border-radius: 30px;
+        padding: 8px 20px;
+        background-color: white;
+        &_army {
+            border: 1px rgb(66, 66, 66) solid;
+            color: rgb(66, 66, 66);
+        }
+        &_artifact {
+            border: 1px rgb(255, 115, 28) solid;
+            color: rgb(255, 115, 28);
+        }
+        &_beast {
+            border: 1px rgb(45, 194, 0) solid;
+            color: rgb(45, 194, 0);
+        }
+        &_flame {
+            border: 1px rgb(220, 70, 0) solid;
+            color: rgb(220, 70, 0);
+        }
+        &_flood {
+            border: 1px rgb(0, 43, 144) solid;
+            color: rgb(0, 43, 144);
+        }
+        &_land {
+            border: 1px rgb(71, 37, 0) solid;
+            color: rgb(71, 37, 0);
+        }
+        &_leader {
+            border: 1px rgb(118, 0, 209) solid;
+            color: rgb(118, 0, 209);
+        }
+        &_weapon {
+            border: 1px rgb(117, 117, 117) solid;
+            color: rgb(117, 117, 117);
+        }
+        &_weather {
+            border: 1px rgb(82, 170, 252) solid;
+            color: rgb(82, 170, 252);
+        }
+        &_wild {
+            border: 1px rgb(188, 188, 188) solid;
+            color: rgb(188, 188, 188);
+        }
+        &_wizard {
+            border: 1px rgb(206, 0, 196) solid;
+            color: rgb(206, 0, 196);
+        }
+    }
+}

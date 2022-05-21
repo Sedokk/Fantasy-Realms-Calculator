@@ -1,0 +1,43 @@
+
+
+
+.hand {
+    
+	&__metrics {
+        margin-bottom: 20px;
+        font-size: 40px;
+        font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+        color: grey;
+        
+    }
+	&__points {}
+	&__cards-amount {}
+	&__cards-allowed {}
+
+    &__card {
+        border: 2px black solid;
+        border-radius: 30px;
+        padding: 15px 30px;
+        min-width: 500px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+        &-name {
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+            font-size: 20px;
+            color: black;
+        }
+
+        &-power {
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+            font-size: 20px;
+            background-color: grey;
+            padding: 5px;
+            border-radius: 50%;
+        }
+    }
+}
