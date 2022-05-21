@@ -3,30 +3,28 @@ let hand = []
 
 let points = 0;
 
-class Card {
-    constructor(name, suit, power, act, actingNames, actingExeptions) {
-        this.name = name;
-        this.suit = suit;
-        this.power = power;
-        this.blocked = false;
-        this.act = act;
-        this.actingNames = actingNames;
-        this.actingExeptions = actingExeptions;
-        
+const cards = [
+    {
+        name: 'rangers',
+        suit: 'army',
+        power: 5,
+        blanked: false,
+        action: ['increasing for each', 'unblanking'],
+        names: {
+            increasing: ['land'],
+            unblanking: ['army'],
+        },
+        exeptions: {},
+        number: {
+            increasing: 10,
+            decreasing: 0,
+            extra: 0,
+        },
     }
+]
 
-    
-}
 
-const rangers = new Card('rangers', 'army', 5)
-const earthElemental = new Card('earth elemental', 'land', 4)
-const undergroundCaverns = new Card('warship', 'weapon', 23, 'blanking self', [], ['flood'])
-const basilisk = new Card('basilisk', 'beast', 35, 'blanking', ['army', 'leader', 'beast'], ['basilisk'], true)
-const dragon = new Card('dragon', 'beast', 30)
-const elvenLongbow = new Card('elven longbow', 'flood', 3)
-const elvenArchers = new Card('elven archers', 'army', 10)
 
-hand = [rangers, earthElemental, undergroundCaverns, basilisk, dragon, elvenLongbow, elvenArchers]
 
 function blanking(arr) {
     arr.forEach(e => {
