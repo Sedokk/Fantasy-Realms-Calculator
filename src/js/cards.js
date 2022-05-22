@@ -14,14 +14,50 @@ const cards = [
             increasing: ['land'],
             unblanking: ['army'],
         },
-        exeptions: {},
+        exeptions: [],
         number: {
             increasing: 10,
             decreasing: 0,
             extra: 0,
         },
-    }
+    },
+    {
+        name: 'elven archers',
+        suit: 'army',
+        power: 10,
+        blanked: false,
+        action: ['increasing for absense'],
+        names: {
+            increasing: ['weather'],
+            unblanking: [],
+        },
+        exeptions: [],
+        number: {
+            increasing: 5,
+            decreasing: 0,
+            extra: 0,
+        },
+    },
+    {
+        name: 'dwarvish infantry',
+        suit: 'army',
+        power: 15,
+        blanked: false,
+        action: ['decreasing for each'],
+        names: {
+            increasing: ['army'],
+            unblanking: ['army'],
+        },
+        exeptions: ['dwarvish infantry'],
+        number: {
+            increasing: 0,
+            decreasing: 2,
+            extra: 0,
+        },
+    },
 ]
+
+
 
 
 
