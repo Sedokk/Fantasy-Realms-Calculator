@@ -46,6 +46,40 @@ const cards = [
         action: ['decreasing for each'],
         names: {
             increasing: ['army'],
+            unblanking: [],
+        },
+        exeptions: ['dwarvish infantry'],
+        number: {
+            increasing: 0,
+            decreasing: 2,
+            extra: 0,
+        },
+    },
+    {
+        name: 'warhorse',
+        suit: 'beast',
+        power: 6,
+        blanked: false,
+        action: ['increasing for being'],
+        names: {
+            increasing: ['leader', 'wizard'],
+            unblanking: [],
+        },
+        exeptions: [],
+        number: {
+            increasing: 14,
+            decreasing: 0,
+            extra: 0,
+        },
+    },
+    {
+        name: 'dwarvish infantry',
+        suit: 'army',
+        power: 15,
+        blanked: false,
+        action: ['decreasing for each'],
+        names: {
+            increasing: ['army'],
             unblanking: ['army'],
         },
         exeptions: ['dwarvish infantry'],
