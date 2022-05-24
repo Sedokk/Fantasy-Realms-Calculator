@@ -146,6 +146,7 @@ function blanking(arr) {
         }
 
         arr.forEach(el => {
+            
             if(e.exeptions.includes(el.name) || e.exeptions.includes(el.suit)) {
                 return
             }
@@ -158,26 +159,28 @@ function blanking(arr) {
     });
 }
 
-// function blankingSelf(arr) {
-//     arr.forEach(e => {
-//         if(e.act != 'blanking self') {
-//             return
-//         }
-//         e.blocked = true;
+function blankingSelf(arr) {
+    arr.forEach(e => {
+        if(!e.action.includes('bl self')) {
+            return
+        }
 
-//         const hasNames = arr.some(el => {
-//             return e.actingNames.includes(el.suit) || e.actingNames.includes(el.name)
-//         })
-//         if (hasNames) return
-
-//         const hasExeptions = arr.some(el => {
-//             return e.actingExeptions.includes(el.suit) || e.actingExeptions.includes(el.name)
-//         })
-//         if (hasExeptions) e.blocked = false;
-//     });
-// }
+        const exeptions = arr.some(el => {
+            if(e.exeptions.includes(el.name) || e.exeptions.includes(el.suit)) {
+                return true;
+            }
+        })
+        const names = arr.some(el => {
+            if(e.names.blanking.includes(el.name) || e.names.blanking.includes(el.suit)) {
+                return true;
+            }
+        })
+        if(exeptions || !names) e.blanked = true;
+        
+    });
+}
 
 
 blanking(handObj);
-// blankingSelf(hand);
+blankingSelf(handObj);
 console.log(handObj);
