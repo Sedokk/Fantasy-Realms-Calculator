@@ -115,10 +115,11 @@ const cards = [
         blanked: false,
         action: ['bl self'],
         names: {
-            increasing: ['land'],
-            unblanking: ['army'],
+            increasing: [],
+            unblanking: [],
+            blanking: ['army']
         },
-        exeptions: [],
+        exeptions: ['weather'],
         number: {
             increasing: 10,
             decreasing: 0,
@@ -128,49 +129,55 @@ const cards = [
     
 ]
 
+hand = ['rangers', 'great flood', 'lightning', 'warship', 'basilisk', 'war dirigible', 'rainstorm']
 
+const handObj = hand.map(e => {
+    const obj = cards.find(el => el.name == e)
+    return e = obj
+})
 
 
 
 
 function blanking(arr) {
     arr.forEach(e => {
-        if(e.act != 'blanking') {
+        if(!e.action.includes('bl')) {
             return
         }
 
         arr.forEach(el => {
-            if (e.actingExeptions.includes(el.name) || e.actingExeptions.includes(el.suit)) {
+            if(e.exeptions.includes(el.name) || e.exeptions.includes(el.suit)) {
                 return
             }
-            if (e.actingNames.includes(el.name) || e.actingNames.includes(el.suit)) {
-                el.blocked = true;
+
+            if(e.names.blanking.includes(el.name) || e.names.blanking.includes(el.suit)) {
+                el.blanked = true;
             }
             
         })
     });
 }
 
-function blankingSelf(arr) {
-    arr.forEach(e => {
-        if(e.act != 'blanking self') {
-            return
-        }
-        e.blocked = true;
+// function blankingSelf(arr) {
+//     arr.forEach(e => {
+//         if(e.act != 'blanking self') {
+//             return
+//         }
+//         e.blocked = true;
 
-        const hasNames = arr.some(el => {
-            return e.actingNames.includes(el.suit) || e.actingNames.includes(el.name)
-        })
-        if (hasNames) return
+//         const hasNames = arr.some(el => {
+//             return e.actingNames.includes(el.suit) || e.actingNames.includes(el.name)
+//         })
+//         if (hasNames) return
 
-        const hasExeptions = arr.some(el => {
-            return e.actingExeptions.includes(el.suit) || e.actingExeptions.includes(el.name)
-        })
-        if (hasExeptions) e.blocked = false;
-    });
-}
+//         const hasExeptions = arr.some(el => {
+//             return e.actingExeptions.includes(el.suit) || e.actingExeptions.includes(el.name)
+//         })
+//         if (hasExeptions) e.blocked = false;
+//     });
+// }
 
 
-blanking(hand);
-blankingSelf(hand);
-console.log(hand);
+blanking(handObj);
+// blankingSelf(hand);
+console.log(handObj);
