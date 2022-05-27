@@ -205,12 +205,16 @@ function counting(arr) {
     countingBasePower(arr);
 
     arr.forEach(e => {
-        if (e.action.includes('inc each')) {
-            const names = e.names.increasing
-            const matchedArr = arr.filter(el => names.includes(el.name) || names.includes(el.suit))
+        const actions = e.action;
+        const namesInc = e.names.increasing
+        if (actions.includes('inc each')) {
+            const matchedArr = arr.filter(el => namesInc.includes(el.name) || namesInc.includes(el.suit))
             points += matchedArr.length * e.number.increasing
+        }
 
-            console.log();
+        if (actions.includes('inc pres')) {
+            const matched = arr.some(el => namesInc.includes(el.name) || namesInc.includes(el.suit));
+            if (matched) points += e.number.increasing
         }
     })
 
