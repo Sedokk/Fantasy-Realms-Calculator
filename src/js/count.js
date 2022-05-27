@@ -203,16 +203,21 @@ function pardoning(arr) {
 
 function counting(arr) {
     countingBasePower(arr);
+
+    arr.forEach(e => {
+        if (e.action.includes('inc each')) {
+            const names = e.names.increasing
+            const matchedArr = arr.filter(el => names.includes(el.name) || names.includes(el.suit))
+            points += matchedArr.length * e.number.increasing
+
+            console.log();
+        }
+    })
+
     console.log(points);
 }
 
 function countingBasePower(arr) {
-    // const allBasePower = arr.reduce((acc, e) => {
-    //     if (e.blanked === false) {
-    //         return acc + e.power
-    //     }
-    // }, 0)
-    // points += allBasePower
     arr.forEach(e => {
         if(e.blanked === false) {
             points += e.power
