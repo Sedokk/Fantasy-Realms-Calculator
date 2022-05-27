@@ -216,6 +216,11 @@ function counting(arr) {
             const matched = arr.some(el => namesInc.includes(el.name) || namesInc.includes(el.suit));
             if (matched) points += e.number.increasing
         }
+
+        if (actions.includes('inc abs')) {
+            const matched = arr.some(el => namesInc.includes(el.name) || namesInc.includes(el.suit));
+            if (!matched) points += e.number.increasing
+        }
     })
 
     console.log(points);
