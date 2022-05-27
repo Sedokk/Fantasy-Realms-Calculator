@@ -158,6 +158,7 @@ function blanking(arr) {
             
         })
     });
+    blankingSelf(arr);
 }
 
 function blankingSelf(arr) {
@@ -200,7 +201,26 @@ function pardoning(arr) {
     });
 }
 
+function counting(arr) {
+    countingBasePower(arr);
+    console.log(points);
+}
+
+function countingBasePower(arr) {
+    // const allBasePower = arr.reduce((acc, e) => {
+    //     if (e.blanked === false) {
+    //         return acc + e.power
+    //     }
+    // }, 0)
+    // points += allBasePower
+    arr.forEach(e => {
+        if(e.blanked === false) {
+            points += e.power
+        }
+    })
+}
+
 blanking(handObj);
-blankingSelf(handObj);
 pardoning(handObj);
+counting(handObj);
 console.log(handObj);
