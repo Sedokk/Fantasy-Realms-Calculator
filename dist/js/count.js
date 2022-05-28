@@ -93,18 +93,17 @@ const cards = [
         },
     },
     {
-        name: 'warship',
-        suit: 'weapon',
-        power: 23,
+        name: 'candle',
+        suit: 'flame',
+        power: 2,
         blanked: false,
-        action: ['bl self', 'pardon'],
+        action: ['inc pres all'],
         names: {
-            blanking: ['flood'],
-            pardoning: ['army', 'flood'],
+            increasing: ['book of changes', 'bell tower', 'wizard']
         },
         exeptions: [],
         number: {
-            increasing: 0,
+            increasing: 100,
             decreasing: 0,
             extra: 0,
         },
@@ -130,7 +129,7 @@ const cards = [
     
 ]
 
-hand = ['rangers', 'great flood', 'lightning', 'warship', 'basilisk', 'war dirigible', 'rainstorm']
+hand = ['rangers', 'great flood', 'lightning', 'candle', 'basilisk', 'war dirigible', 'rainstorm']
 
 const handObj = hand.map(e => {
     const obj = cards.find(el => el.name == e)
@@ -201,29 +200,56 @@ function pardoning(arr) {
     });
 }
 
-function counting(arr) {
-    countingBasePower(arr);
+function countingInc(arr) {
 
     arr.forEach(e => {
         const actions = e.action;
-        const namesInc = e.names.increasing
+        const namesInc = e.names.increasing;
+        const pointsInc = e.number.increasing;
+
         if (actions.includes('inc each')) {
             const matchedArr = arr.filter(el => namesInc.includes(el.name) || namesInc.includes(el.suit))
-            points += matchedArr.length * e.number.increasing
+            points += matchedArr.length * pointsInc
         }
 
         if (actions.includes('inc pres')) {
             const matched = arr.some(el => namesInc.includes(el.name) || namesInc.includes(el.suit));
-            if (matched) points += e.number.increasing
+            if (matched) points += pointsInc
         }
 
         if (actions.includes('inc abs')) {
             const matched = arr.some(el => namesInc.includes(el.name) || namesInc.includes(el.suit));
-            if (!matched) points += e.number.increasing
+            if (!matched) points += pointsInc
+        }
+
+        if (actions.includes('inc pres all')) {
+            const matched = namesInc.filter(el => arr.find(elem => elem.name === el || elem.suit === el))
+            if (matched.length === namesInc.length) points += pointsInc
         }
     })
+}
+function countingDec(arr) {
 
-    console.log(points);
+    arr.forEach(e => {
+        const actions = e.action;
+        const namesDec = e.names.decreasing;
+        const pointsDec = e.number.decreasing;
+
+        if (actions.includes('dec each')) {
+            const matchedArr = arr.filter(el => namesDec.includes(el.name) || namesDec.includes(el.suit))
+            points -= matchedArr.length * pointsDec
+        }
+
+        if (actions.includes('dec pres')) {
+            const matched = arr.some(el => namesDec.includes(el.name) || namesDec.includes(el.suit));
+            if (matched) points -= pointsDec
+        }
+
+        if (actions.includes('dec abs')) {
+            const matched = arr.some(el => namesDec.includes(el.name) || namesDec.includes(el.suit));
+            if (!matched) points -= pointsDec
+        }
+    })
 }
 
 function countingBasePower(arr) {
@@ -236,5 +262,7 @@ function countingBasePower(arr) {
 
 blanking(handObj);
 pardoning(handObj);
-counting(handObj);
+countingBasePower(handObj);
+countingInc(handObj);
 console.log(handObj);
+console.log(points);
