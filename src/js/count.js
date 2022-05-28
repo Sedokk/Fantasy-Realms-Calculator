@@ -12,8 +12,7 @@ const cards = [
         action: ['inc each', 'pardon'],
         names: {
             increasing: ['land'],
-            unblanking: ['army'],
-            pardoning: ['weapon'],
+            pardoning: ['army'],
         },
         exeptions: [],
         number: {
@@ -23,13 +22,13 @@ const cards = [
         },
     },
     {
-        name: 'basilisk',
-        suit: 'beast',
-        power: 35,
+        name: 'forest',
+        suit: 'land',
+        power: 7,
         blanked: false,
-        action: ['bl'],
+        action: ['inc each'],
         names: {
-            increasing: [],
+            increasing: ['beast', 'elven archers'],
             unblanking: [],
             blanking: ['army', 'leader', 'beast']
         },
@@ -41,19 +40,19 @@ const cards = [
         },
     },
     {
-        name: 'great flood',
-        suit: 'flood',
-        power: 32,
+        name: 'elven archers',
+        suit: 'army',
+        power: 10,
         blanked: false,
-        action: ['bl'],
+        action: ['inc abs'],
         names: {
-            increasing: [],
+            increasing: ['weather'],
             unblanking: [],
-            blanking: ['army', 'land', 'flame']
+            blanking: []
         },
-        exeptions: ['mountain', 'lightning'],
+        exeptions: [],
         number: {
-            increasing: 0,
+            increasing: 5,
             decreasing: 0,
             extra: 0,
         },
@@ -109,19 +108,19 @@ const cards = [
         },
     },
     {
-        name: 'war dirigible',
+        name: 'elven longbow',
         suit: 'weapon',
-        power: 35,
+        power: 3,
         blanked: false,
-        action: ['bl self'],
+        action: ['inc pres'],
         names: {
-            increasing: [],
+            increasing: ['elven archers', 'warlord', 'beastmaster'],
             unblanking: [],
-            blanking: ['army']
+            blanking: []
         },
-        exeptions: ['weather'],
+        exeptions: [],
         number: {
-            increasing: 10,
+            increasing: 30,
             decreasing: 0,
             extra: 0,
         },
@@ -129,7 +128,7 @@ const cards = [
     
 ]
 
-hand = ['rangers', 'great flood', 'lightning', 'candle', 'basilisk', 'war dirigible', 'rainstorm']
+hand = ['rangers', 'forest', 'lightning', 'candle', 'elven archers', 'elven longbow', 'rainstorm']
 
 const handObj = hand.map(e => {
     const obj = cards.find(el => el.name == e)
@@ -192,6 +191,7 @@ function pardoning(arr) {
             if(e.names.pardoning.includes(el.name) || e.names.pardoning.includes(el.suit)) {
                 el.blanked = false;
                 el.pardoned = true;
+                console.log('pardoned: ', el.name);
             }
             
         })
@@ -208,23 +208,27 @@ function countingInc(arr) {
         const pointsInc = e.number.increasing;
 
         if (actions.includes('inc each')) {
-            const matchedArr = arr.filter(el => namesInc.includes(el.name) || namesInc.includes(el.suit))
+            const matchedArr = arr.filter(el => (namesInc.includes(el.name) || namesInc.includes(el.suit)) && (!e.exeptions.includes(el.name) && !e.exeptions.includes(el.suit)))
             points += matchedArr.length * pointsInc
+            console.log('increased: ', matchedArr.length * pointsInc + ' points by', e.name);
         }
 
         if (actions.includes('inc pres')) {
             const matched = arr.some(el => namesInc.includes(el.name) || namesInc.includes(el.suit));
             if (matched) points += pointsInc
+            if (matched) console.log('increased: ', pointsInc + ' points by', e.name);
         }
 
         if (actions.includes('inc abs')) {
             const matched = arr.some(el => namesInc.includes(el.name) || namesInc.includes(el.suit));
             if (!matched) points += pointsInc
+            if (!matched) console.log('increased: ', pointsInc + ' points by', e.name);
         }
 
         if (actions.includes('inc pres all')) {
             const matched = namesInc.filter(el => arr.find(elem => elem.name === el || elem.suit === el))
             if (matched.length === namesInc.length) points += pointsInc
+            if (matched.length === namesInc.length) console.log('increased: ', pointsInc + ' points by', e.name);
         }
     })
 }
@@ -236,18 +240,21 @@ function countingDec(arr) {
         const pointsDec = e.number.decreasing;
 
         if (actions.includes('dec each')) {
-            const matchedArr = arr.filter(el => namesDec.includes(el.name) || namesDec.includes(el.suit))
+            const matchedArr = arr.filter(el => (namesDec.includes(el.name) || namesDec.includes(el.suit)) && (!e.exeptions.includes(el.name) && !e.exeptions.includes(el.suit)))
             points -= matchedArr.length * pointsDec
+            console.log('decreased: ', matchedArr.length * pointsDec + ' points by', e.name);
         }
 
         if (actions.includes('dec pres')) {
             const matched = arr.some(el => namesDec.includes(el.name) || namesDec.includes(el.suit));
             if (matched) points -= pointsDec
+            if (matched) console.log('decreased: ', pointsDec + ' points by', e.name);
         }
 
         if (actions.includes('dec abs')) {
             const matched = arr.some(el => namesDec.includes(el.name) || namesDec.includes(el.suit));
             if (!matched) points -= pointsDec
+            if (!matched) console.log('decreased: ', pointsDec + ' points by', e.name);
         }
     })
 }
@@ -258,11 +265,13 @@ function countingBasePower(arr) {
             points += e.power
         }
     })
+    console.log('base:', points);
 }
 
 blanking(handObj);
 pardoning(handObj);
 countingBasePower(handObj);
 countingInc(handObj);
+countingDec(handObj);
 console.log(handObj);
 console.log(points);
