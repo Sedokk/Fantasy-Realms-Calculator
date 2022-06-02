@@ -151,8 +151,11 @@ function countingBasePower(arr) {
 
 function specials(arr) {
     arr.forEach(e => {
-        if(e.action.includes('special')) {
+        if(e.action.includes('special plus')) {
             points += e.special(arr)
+        }
+        if(e.action.includes('special')) {
+            e.special(arr)
         }
     })
 }

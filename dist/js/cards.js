@@ -126,7 +126,7 @@ const cards = [
         suit: 'artifact',
         power: 2,
         blanked: false,
-        action: ['special'],
+        action: ['special plus'],
         names: {},
         exeptions: [],
         number: {},
@@ -136,6 +136,7 @@ const cards = [
             .map(e => e.suit)
             const suitsUnic = [... new Set(suits)]
             if(suits.length === suitsUnic.length) return 50
+            else return 0
         },
     },
 ]
