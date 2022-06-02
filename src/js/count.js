@@ -7,7 +7,7 @@ let points = 0;
 
 
 
-hand = ['rangers', 'forest', 'lightning', 'candle', 'elven archers', 'elven longbow', 'rainstorm']
+hand = ['world tree', 'forest', 'lightning', 'candle', 'elven archers', 'elven longbow', 'rainstorm']
 
 const handObj = hand.map(e => {
     const obj = cards.find(el => el.name == e)
@@ -15,7 +15,8 @@ const handObj = hand.map(e => {
 })
 
 
-
+//==========================
+//base functions
 
 function blanking(arr) {
     arr.forEach(e => {
@@ -59,25 +60,25 @@ function blankingSelf(arr) {
     });
 }
 
-function pardoning(arr) {
-    arr.forEach(e => {
-        if(!e.action.includes('pardon')) {
-            return
-        }
+// function pardoning(arr) {
+//     arr.forEach(e => {
+//         if(!e.action.includes('pardon')) {
+//             return
+//         }
 
-        arr.forEach(el => {
+//         arr.forEach(el => {
 
-            if(e.names.pardoning.includes(el.name) || e.names.pardoning.includes(el.suit)) {
-                el.blanked = false;
-                el.pardoned = true;
-                console.log('pardoned: ', el.name);
-            }
+//             if(e.names.pardoning.includes(el.name) || e.names.pardoning.includes(el.suit)) {
+//                 el.blanked = false;
+//                 el.pardoned = true;
+//                 console.log('pardoned: ', el.name);
+//             }
             
-        })
+//         })
         
         
-    });
-}
+//     });
+// }
 
 function countingInc(arr) {
 
@@ -147,10 +148,25 @@ function countingBasePower(arr) {
     console.log('base:', points);
 }
 
+
+function specials(arr) {
+    arr.forEach(e => {
+        if(e.action.includes('special')) {
+            points += e.special(arr)
+        }
+    })
+}
+
+
+
+//=================================
+//call
+
 blanking(handObj);
-pardoning(handObj);
+// pardoning(handObj);
 countingBasePower(handObj);
 countingInc(handObj);
 countingDec(handObj);
+specials(handObj, points);
 console.log(handObj);
 console.log(points);
