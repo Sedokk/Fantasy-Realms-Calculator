@@ -130,12 +130,46 @@ const cards = [
         names: {},
         exeptions: [],
         number: {},
-        special: function(arr) {
+        special(arr) {
             const suits = arr
-            .filter(e => e.blanked == false)
-            .map(e => e.suit)
+                .filter(e => e.blanked == false)
+                .map(e => e.suit)
             const suitsUnic = [... new Set(suits)]
             if(suits.length === suitsUnic.length) return 50
+            else return 0
+        },
+    },
+    {
+        name: 'shield of keth',
+        suit: 'artifact',
+        power: 4,
+        blanked: false,
+        action: ['special plus'],
+        names: {},
+        exeptions: [],
+        number: {},
+        special(arr) {
+            const hasLeader = arr.some(e => e.suit === 'leader')
+            const hasSword = arr.some(e => e.name === 'sword of keth')
+            if(hasLeader && hasSword) return 40
+            if(hasLeader) return 15
+            else return 0
+        },
+    },
+    {
+        name: 'sword of keth',
+        suit: 'weapon',
+        power: 7,
+        blanked: false,
+        action: ['special plus'],
+        names: {},
+        exeptions: [],
+        number: {},
+        special(arr) {
+            const hasLeader = arr.some(e => e.suit === 'leader')
+            const hasShield = arr.some(e => e.name === 'shield of keth')
+            if(hasLeader && hasShield) return 40
+            if(hasLeader) return 15
             else return 0
         },
     },
