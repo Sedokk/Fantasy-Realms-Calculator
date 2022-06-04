@@ -184,7 +184,7 @@ const cards = [
         number: {},
         special(arr) {
             const hasPrincess = arr.some(e => e.name === 'princess')
-            const hasOtherWomen = arr.some(e => e.name === 'empress' || 'queen' || 'elemental enchantress')
+            const hasOtherWomen = arr.some(e => e.name === 'empress' || e.name === 'queen' || e.name === 'elemental enchantress')
             if(hasPrincess) return 30
             if(hasOtherWomen) return 15
             else return 0
@@ -201,9 +201,10 @@ const cards = [
         number: {},
         special(arr) {
             const powersOfNeededSuits = arr
-                .filter(e => e.suit === 'weapon' || 'flood' || 'flame' || 'land' || 'weather')
-                .map(e => e.power)
-            console.log('powers', powersOfNeededSuits);
+                .filter(e => e.suit === 'weapon' || e.suit === 'flood' || e.suit === 'flame' || e.suit === 'land' || e.suit === 'weather')
+                .map(e => new Number(e.power))
+            if(powersOfNeededSuits.length > 0) return Math.max(...powersOfNeededSuits)
+            else return 0
         },
     },
 ]
