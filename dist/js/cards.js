@@ -173,6 +173,39 @@ const cards = [
             else return 0
         },
     },
+    {
+        name: 'unicorn',
+        suit: 'beast',
+        power: 9,
+        blanked: false,
+        action: ['special plus'],
+        names: {},
+        exeptions: [],
+        number: {},
+        special(arr) {
+            const hasPrincess = arr.some(e => e.name === 'princess')
+            const hasOtherWomen = arr.some(e => e.name === 'empress' || 'queen' || 'elemental enchantress')
+            if(hasPrincess) return 30
+            if(hasOtherWomen) return 15
+            else return 0
+        },
+    },
+    {
+        name: 'fountain of life',
+        suit: 'flood',
+        power: 1,
+        blanked: false,
+        action: ['special plus'],
+        names: {},
+        exeptions: [],
+        number: {},
+        special(arr) {
+            const powersOfNeededSuits = arr
+                .filter(e => e.suit === 'weapon' || 'flood' || 'flame' || 'land' || 'weather')
+                .map(e => e.power)
+            console.log('powers', powersOfNeededSuits);
+        },
+    },
 ]
 
 
