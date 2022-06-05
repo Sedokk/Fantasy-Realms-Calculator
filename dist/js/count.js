@@ -7,7 +7,7 @@ let points = 0;
 
 
 
-hand = ['rangers', 'forest', 'warlord', 'queen', 'elven archers', 'elven longbow', 'rainstorm']
+hand = ['rangers', 'forest', 'collector', 'queen', 'elven archers', 'elven longbow', 'rainstorm']
 
 const handObj = hand.map(e => {
     const obj = cards.find(el => el.name == e)
@@ -173,3 +173,4 @@ countingDec(handObj);
 specials(handObj, points);
 console.log(handObj);
 console.log(points);
+

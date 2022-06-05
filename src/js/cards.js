@@ -259,6 +259,45 @@ const cards = [
             return 0
         },
     },
+    {
+        name: 'whirlwind',
+        suit: 'weather',
+        power: 13,
+        blanked: false,
+        action: ['special plus'],
+        names: {},
+        exeptions: [],
+        number: {},
+        special(arr) {
+            const hasRainstorm = arr.some(e => e.name === 'rainstorm')
+            const hasBlizzOrGF = arr.some(e => e.name === 'blizzard' || e.name === 'great flood')
+            if (hasRainstorm && hasBlizzOrGF) return 40
+            else return 0
+        },
+    },
+    {
+        name: 'collector',
+        suit: 'wizard',
+        power: 7,
+        blanked: false,
+        action: ['special plus'],
+        names: {},
+        exeptions: [],
+        number: {},
+        special(arr) {
+            const suits = arr.map(e => e.suit)
+            const suitsAmount = suits.reduce((acc, e) => {
+                acc[e] = (acc[e] || 0) + 1
+                return acc
+            }, {})
+            const amounts = Object.values(suitsAmount)
+            const largest = Math.max(...amounts)
+            if (largest > 4) return 100
+            if (largest > 3) return 40
+            if (largest > 2) return 10
+            else return 0
+        },
+    },
 ]
 
 
