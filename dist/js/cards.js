@@ -293,8 +293,25 @@ const cards = [
             const amounts = Object.values(suitsAmount)
             const largest = Math.max(...amounts)
             if (largest > 4) return 100
-            if (largest > 3) return 40
-            if (largest > 2) return 10
+            if (largest === 4) return 40
+            if (largest === 3) return 10
+            else return 0
+        },
+    },
+    {
+        name: 'jester',
+        suit: 'wizard',
+        power: 3,
+        blanked: false,
+        action: ['special plus'],
+        names: {},
+        exeptions: [],
+        number: {},
+        special(arr) {
+            const powers = arr.map(e => e.power)
+            const areOdd = powers.filter(e => e % 2 === 1)
+            if(areOdd.length === powers.length) return 50
+            if(areOdd.length > 0) return 3 * areOdd.length
             else return 0
         },
     },
