@@ -207,6 +207,58 @@ const cards = [
             else return 0
         },
     },
+    {
+        name: 'king',
+        suit: 'leader',
+        power: 8,
+        blanked: false,
+        action: ['special plus'],
+        names: {},
+        exeptions: [],
+        number: {},
+        special(arr) {
+            const hasQueen = arr.some(e => e.name === 'queen')
+            const armies = arr.filter(e => e.suit === 'army')
+            if (hasQueen) return armies.length * 20
+            else return armies.length * 5
+        },
+    },
+    {
+        name: 'queen',
+        suit: 'leader',
+        power: 6,
+        blanked: false,
+        action: ['special plus'],
+        names: {},
+        exeptions: [],
+        number: {},
+        special(arr) {
+            const hasKing = arr.some(e => e.name === 'king')
+            const armies = arr.filter(e => e.suit === 'army')
+            if (hasKing) return armies.length * 20
+            else return armies.length * 5
+        },
+    },
+    {
+        name: 'warlord',
+        suit: 'leader',
+        power: 4,
+        blanked: false,
+        action: ['special plus'],
+        names: {},
+        exeptions: [],
+        number: {},
+        special(arr) {
+            const armies = arr.filter(e => e.suit === 'army')
+            if(armies.length > 0) {
+                const armiesBasePower = armies
+                    .map(e => e.power)
+                    .reduce((acc, e) => acc + e)
+                return armiesBasePower;
+            }  
+            return 0
+        },
+    },
 ]
 
 
