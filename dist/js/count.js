@@ -7,7 +7,7 @@ let points = 0;
 
 
 
-hand = ['rangers', 'forest', 'jester', 'queen', 'elven archers', 'elven longbow', 'rainstorm']
+hand = ['rangers', 'forest', 'candle', 'protection rune', 'elven archers', 'elven longbow', 'rainstorm']
 
 const handObj = hand.map(e => {
     const obj = cards.find(el => el.name == e)
@@ -20,65 +20,40 @@ const handObj = hand.map(e => {
 
 function blanking(arr) {
     arr.forEach(e => {
-        if(!e.action.includes('bl')) {
-            return
-        }
+        if(!e.action.includes('bl')) return
 
         arr.forEach(el => {
-            
-            if(e.exeptions.includes(el.name) || e.exeptions.includes(el.suit)) {
-                return
-            }
-
-            if(e.names.blanking.includes(el.name) || e.names.blanking.includes(el.suit)) {
-                el.blanked = true;
-            }
-            
+            if(e.exeptions.blanking.includes(el.name) || e.exeptions.blanking.includes(el.suit)) return
+            if(e.names.blanking.includes(el.name) || e.names.blanking.includes(el.suit)) el.blanked = true;
         })
     });
+
     blankingSelf(arr);
 }
 
 function blankingSelf(arr) {
     arr.forEach(e => {
-        if(!e.action.includes('bl self')) {
-            return
-        }
+        if(!e.action.includes('bl self')) return
 
-        const exeptions = arr.some(el => {
-            if(e.exeptions.includes(el.name) || e.exeptions.includes(el.suit)) {
-                return true;
-            }
-        })
-        const names = arr.some(el => {
-            if(e.names.blanking.includes(el.name) || e.names.blanking.includes(el.suit)) {
-                return true;
-            }
-        })
+        const exeptions = arr.some(el => e.exeptions.blanking.includes(el.name) || e.exeptions.blanking.includes(el.suit))
+        const names = arr.some(el => e.names.blanking.includes(el.name) || e.names.blanking.includes(el.suit))
         if(exeptions || !names) e.blanked = true;
         
     });
 }
 
-// function pardoning(arr) {
-//     arr.forEach(e => {
-//         if(!e.action.includes('pardon')) {
-//             return
-//         }
-
-//         arr.forEach(el => {
-
-//             if(e.names.pardoning.includes(el.name) || e.names.pardoning.includes(el.suit)) {
-//                 el.blanked = false;
-//                 el.pardoned = true;
-//                 console.log('pardoned: ', el.name);
-//             }
-            
-//         })
-        
-        
-//     });
-// }
+function clearing(arr) {
+    arr.forEach(e => {
+        if(!e.action.includes('clearing card')) return
+        arr.forEach(el => {
+            if(e.names.pardoning.includes(el.name) || e.names.pardoning.includes(el.suit)) {
+                el.blanked = false;
+                el.cleared = true;
+                console.log('pardoned: ', el.name);
+            }
+        })
+    });
+}
 
 function countingInc(arr) {
 
@@ -86,9 +61,10 @@ function countingInc(arr) {
         const actions = e.action;
         const namesInc = e.names.increasing;
         const pointsInc = e.number.increasing;
+        const exeptionsInc = e.exeptions.increasing;
 
         if (actions.includes('inc each')) {
-            const matchedArr = arr.filter(el => (namesInc.includes(el.name) || namesInc.includes(el.suit)) && (!e.exeptions.includes(el.name) && !e.exeptions.includes(el.suit)))
+            const matchedArr = arr.filter(el => (namesInc.includes(el.name) || namesInc.includes(el.suit)) && (!exeptionsInc.includes(el.name) && !exeptionsInc.includes(el.suit)))
             points += matchedArr.length * pointsInc
             console.log('increased: ', matchedArr.length * pointsInc + ' points by', e.name);
         }
@@ -118,9 +94,12 @@ function countingDec(arr) {
         const actions = e.action;
         const namesDec = e.names.decreasing;
         const pointsDec = e.number.decreasing;
+        const exeptionsDec = e.exeptions.decreasing;
+
+        if (e.cleared) return
 
         if (actions.includes('dec each')) {
-            const matchedArr = arr.filter(el => (namesDec.includes(el.name) || namesDec.includes(el.suit)) && (!e.exeptions.includes(el.name) && !e.exeptions.includes(el.suit)))
+            const matchedArr = arr.filter(el => (namesDec.includes(el.name) || namesDec.includes(el.suit)) && (!exeptionsDec.includes(el.name) && !exeptionsDec.includes(el.suit)))
             points -= matchedArr.length * pointsDec
             console.log('decreased: ', matchedArr.length * pointsDec + ' points by', e.name);
         }
@@ -149,14 +128,17 @@ function countingBasePower(arr) {
 }
 
 
-function specials(arr) {
+function specialsPlus(arr) {
     arr.forEach(e => {
-        if(e.action.includes('special plus')) {
-            points += e.special(arr)
-        }
-        if(e.action.includes('special')) {
-            e.special(arr)
-        }
+        if(!e.action.includes('special plus')) return
+        points += e.special(arr)
+    })
+}
+
+function specialsClear(arr) {
+    arr.forEach(e => {
+        if(!e.action.includes('special clear')) return
+        e.special(arr)
     })
 }
 
@@ -165,12 +147,24 @@ function specials(arr) {
 //=================================
 //call
 
-blanking(handObj);
-// pardoning(handObj);
-countingBasePower(handObj);
-countingInc(handObj);
-countingDec(handObj);
-specials(handObj, points);
-console.log(handObj);
-console.log(points);
+function count(arr) {
+    blanking(arr);
+    clearing(arr);
+    specialsClear(arr);
+    countingBasePower(arr);
+    countingInc(arr);
+    specialsPlus(arr);
+    countingDec(arr);
+    console.log(points);
+    console.log(handObj);
+}
+
+count(handObj);
+
+
+
+
+
+
+
 

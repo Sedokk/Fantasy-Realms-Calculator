@@ -5,16 +5,18 @@ const cards = [
         suit: 'army',
         power: 5,
         blanked: false,
-        action: ['inc each', 'pardon'],
+        action: ['inc each', 'special clear'],
         names: {
             increasing: ['land'],
-            pardoning: ['army'],
         },
-        exeptions: [],
+        exeptions: {
+            increasing: [],
+        },
         number: {
             increasing: 10,
-            decreasing: 0,
-            extra: 0,
+        },
+        special(arr) {
+
         },
     },
     {
@@ -25,14 +27,12 @@ const cards = [
         action: ['inc each'],
         names: {
             increasing: ['beast', 'elven archers'],
-            unblanking: [],
-            blanking: ['army', 'leader', 'beast']
         },
-        exeptions: ['basilisk'],
+        exeptions: {
+            increasing: [],
+        },
         number: {
-            increasing: 0,
-            decreasing: 0,
-            extra: 0,
+            increasing: 12,
         },
     },
     {
@@ -43,14 +43,12 @@ const cards = [
         action: ['inc abs'],
         names: {
             increasing: ['weather'],
-            unblanking: [],
-            blanking: []
         },
-        exeptions: [],
+        exeptions: {
+            increasing: [],
+        },
         number: {
             increasing: 5,
-            decreasing: 0,
-            extra: 0,
         },
     },
     {
@@ -61,13 +59,12 @@ const cards = [
         action: ['inc pres'],
         names: {
             increasing: ['rainstorm'],
-            unblanking: [],
         },
-        exeptions: [],
+        exeptions: {
+            increasing: [],
+        },
         number: {
             increasing: 30,
-            decreasing: 0,
-            extra: 0,
         },
     },
     {
@@ -80,11 +77,12 @@ const cards = [
             increasing: ['flood'],
             blanking: ['flame'],
         },
-        exeptions: ['lightning'],
+        exeptions: {
+            increasing: [],
+            blanking: ['lightning'],
+        },
         number: {
             increasing: 10,
-            decreasing: 0,
-            extra: 0,
         },
     },
     {
@@ -96,11 +94,9 @@ const cards = [
         names: {
             increasing: ['book of changes', 'bell tower', 'wizard']
         },
-        exeptions: [],
+        exeptions: {},
         number: {
             increasing: 100,
-            decreasing: 0,
-            extra: 0,
         },
     },
     {
@@ -111,14 +107,12 @@ const cards = [
         action: ['inc pres'],
         names: {
             increasing: ['elven archers', 'warlord', 'beastmaster'],
-            unblanking: [],
-            blanking: []
         },
-        exeptions: [],
+        exeptions: {
+            increasing: [],
+        },
         number: {
             increasing: 30,
-            decreasing: 0,
-            extra: 0,
         },
     },
     {
@@ -128,7 +122,7 @@ const cards = [
         blanked: false,
         action: ['special plus'],
         names: {},
-        exeptions: [],
+        exeptions: {},
         number: {},
         special(arr) {
             const suits = arr
@@ -146,7 +140,7 @@ const cards = [
         blanked: false,
         action: ['special plus'],
         names: {},
-        exeptions: [],
+        exeptions: {},
         number: {},
         special(arr) {
             const hasLeader = arr.some(e => e.suit === 'leader')
@@ -163,7 +157,7 @@ const cards = [
         blanked: false,
         action: ['special plus'],
         names: {},
-        exeptions: [],
+        exeptions: {},
         number: {},
         special(arr) {
             const hasLeader = arr.some(e => e.suit === 'leader')
@@ -180,7 +174,7 @@ const cards = [
         blanked: false,
         action: ['special plus'],
         names: {},
-        exeptions: [],
+        exeptions: {},
         number: {},
         special(arr) {
             const hasPrincess = arr.some(e => e.name === 'princess')
@@ -197,7 +191,7 @@ const cards = [
         blanked: false,
         action: ['special plus'],
         names: {},
-        exeptions: [],
+        exeptions: {},
         number: {},
         special(arr) {
             const powersOfNeededSuits = arr
@@ -214,7 +208,7 @@ const cards = [
         blanked: false,
         action: ['special plus'],
         names: {},
-        exeptions: [],
+        exeptions: {},
         number: {},
         special(arr) {
             const hasQueen = arr.some(e => e.name === 'queen')
@@ -230,7 +224,7 @@ const cards = [
         blanked: false,
         action: ['special plus'],
         names: {},
-        exeptions: [],
+        exeptions: {},
         number: {},
         special(arr) {
             const hasKing = arr.some(e => e.name === 'king')
@@ -246,7 +240,7 @@ const cards = [
         blanked: false,
         action: ['special plus'],
         names: {},
-        exeptions: [],
+        exeptions: {},
         number: {},
         special(arr) {
             const armies = arr.filter(e => e.suit === 'army')
@@ -266,7 +260,7 @@ const cards = [
         blanked: false,
         action: ['special plus'],
         names: {},
-        exeptions: [],
+        exeptions: {},
         number: {},
         special(arr) {
             const hasRainstorm = arr.some(e => e.name === 'rainstorm')
@@ -282,7 +276,7 @@ const cards = [
         blanked: false,
         action: ['special plus'],
         names: {},
-        exeptions: [],
+        exeptions: {},
         number: {},
         special(arr) {
             const suits = arr.map(e => e.suit)
@@ -305,7 +299,7 @@ const cards = [
         blanked: false,
         action: ['special plus'],
         names: {},
-        exeptions: [],
+        exeptions: {},
         number: {},
         special(arr) {
             const powers = arr.map(e => e.power)
@@ -313,6 +307,22 @@ const cards = [
             if(areOdd.length === powers.length) return 50
             if(areOdd.length > 0) return 3 * areOdd.length
             else return 0
+        },
+    },
+    {
+        name: 'protection rune',
+        suit: 'artifact',
+        power: 1,
+        blanked: false,
+        action: ['special clear'],
+        names: {},
+        exeptions: {},
+        number: {},
+        special(arr) {
+            arr.forEach(e => {
+                e.blanked = false;
+                e.cleared = true;
+            });
         },
     },
 ]
