@@ -204,6 +204,52 @@ const cards = [
             increasing: 100,
         },
     },
+    {
+        name: 'fire elemental',
+        suit: 'flame',
+        power: 4,
+        blanked: false,
+        action: ['inc each'],
+        names: {
+            increasing: ['flame']
+        },
+        exeptions: {
+            increasing: ['fire elemental'],
+        },
+        number: {
+            increasing: 15,
+        },
+    },
+    {
+        name: 'forge',
+        suit: 'flame',
+        power: 9,
+        blanked: false,
+        action: ['inc each'],
+        names: {
+            increasing: ['weapon', 'artifact']
+        },
+        exeptions: {
+            increasing: [],
+        },
+        number: {
+            increasing: 9,
+        },
+    },
+    {
+        name: 'wildfire',
+        suit: 'flame',
+        power: 40,
+        blanked: false,
+        action: ['bl'],
+        names: {
+            blanking: ['flood', 'land', 'beast', 'army', 'leader'],
+        },
+        exeptions: {
+            blanking: ['great flood', 'island', 'mountain', 'unicorn', 'dragon'],
+        },
+        number: {},
+    },
     //weather ==================
     {
         name: 'rainstorm',
@@ -239,6 +285,54 @@ const cards = [
             else return 0
         },
     },
+    {
+        name: 'air elemental',
+        suit: 'weather',
+        power: 4,
+        blanked: false,
+        action: ['inc each'],
+        names: {
+            increasing: ['weather'],
+        },
+        exeptions: {
+            increasing: ['air elemental'],
+        },
+        number: {
+            increasing: 15,
+        },
+    },
+    {
+        name: 'smoke',
+        suit: 'weather',
+        power: 27,
+        blanked: false,
+        action: ['bl self'],
+        names: {
+            blanking: ['flame'],
+        },
+        exeptions: {
+            blanking: [],
+        },
+        number: {},
+    },
+    {
+        name: 'blizzard',
+        suit: 'weather',
+        power: 30,
+        blanked: false,
+        action: ['bl', 'dec each'],
+        names: {
+            blanking: ['flood'],
+            decreasing: ['army', 'leader', 'beast', 'flame'],
+        },
+        exeptions: {
+            blanking: [],
+            decreasing: [],
+        },
+        number: {
+            decreasing: 5,
+        },
+    },
     //weapon =======================
     {
         name: 'elven longbow',
@@ -272,6 +366,63 @@ const cards = [
             if(hasLeader) return 15
             else return 0
         },
+    },
+    {
+        name: 'warship',
+        suit: 'weapon',
+        power: 23,
+        blanked: false,
+        action: ['bl self', 'special before'],
+        names: {
+            blanking: ['flood'],
+        },
+        exeptions: {
+            blanking: [],
+        },
+        number: {},
+        special(arr) {
+            arr.forEach(e => {
+                let index;
+                if (e.name === 'great flood') {
+                    index = e.names.blanking.indexOf('army')
+                    e.names.blanking.splice(index, 1)
+                }
+                if (e.name === 'swamp') {
+                    index = e.names.decreasing.indexOf('army')
+                    e.names.decreasing.splice(index, 1)
+                }
+            })
+        },
+    },
+    {
+        name: 'magic wand',
+        suit: 'weapon',
+        power: 1,
+        blanked: false,
+        action: ['inc pres'],
+        names: {
+            increasing: ['wizard'],
+        },
+        exeptions: {
+            increasing: [],
+        },
+        number: {
+            increasing: 25,
+        },
+    },
+    {
+        name: 'war dirigible',
+        suit: 'weapon',
+        power: 35,
+        blanked: false,
+        action: ['bl self'],
+        names: {
+            blanking: ['flood'],
+        },
+        exeptions: {
+            blanking: ['weather'],
+        },
+        number: {},
     },
     //artifact ====================
     {
@@ -343,6 +494,84 @@ const cards = [
             else return 0
         },
     },
+    {
+        name: 'warhorse',
+        suit: 'beast',
+        power: 6,
+        blanked: false,
+        action: ['inc pres'],
+        names: {
+            increasing: ['leader', 'wizard'],
+        },
+        exeptions: {
+            increasing: [],
+        },
+        number: {
+            increasing: 14,
+        },
+    },
+    {
+        name: 'hydra',
+        suit: 'beast',
+        power: 12,
+        blanked: false,
+        action: ['inc pres'],
+        names: {
+            increasing: ['swamp'],
+        },
+        exeptions: {
+            increasing: [],
+        },
+        number: {
+            increasing: 28,
+        },
+    },
+    {
+        name: 'hydra',
+        suit: 'beast',
+        power: 12,
+        blanked: false,
+        action: ['inc pres'],
+        names: {
+            increasing: ['swamp'],
+        },
+        exeptions: {
+            increasing: [],
+        },
+        number: {
+            increasing: 28,
+        },
+    },
+    {
+        name: 'dragon',
+        suit: 'beast',
+        power: 30,
+        blanked: false,
+        action: ['dec abs'],
+        names: {
+            decreasing: ['wizard'],
+        },
+        exeptions: {
+            decreasing: [],
+        },
+        number: {
+            decreasing: 40,
+        },
+    },
+    {
+        name: 'basilisk',
+        suit: 'beast',
+        power: 35,
+        blanked: false,
+        action: ['bl'],
+        names: {
+            blanking: ['army', 'leader', 'beast'],
+        },
+        exeptions: {
+            blanking: ['basilisk'],
+        },
+        number: {},
+    },
     //flood ====================
     {
         name: 'fountain of life',
@@ -360,6 +589,52 @@ const cards = [
             if(powersOfNeededSuits.length > 0) return Math.max(...powersOfNeededSuits)
             else return 0
         },
+    },
+    {
+        name: 'water elemental',
+        suit: 'flood',
+        power: 4,
+        blanked: false,
+        action: ['inc each'],
+        names: {
+            increasing: ['flood'],
+        },
+        exeptions: {
+            increasing: ['water elemental'],
+        },
+        number: {
+            increasing: 15,
+        },
+    },
+    {
+        name: 'swamp',
+        suit: 'flood',
+        power: 18,
+        blanked: false,
+        action: ['dec each'],
+        names: {
+            decreasing: ['army', 'flame'],
+        },
+        exeptions: {
+            decreasing: [],
+        },
+        number: {
+            increasing: 3,
+        },
+    },
+    {
+        name: 'great flood',
+        suit: 'flood',
+        power: 32,
+        blanked: false,
+        action: ['bl'],
+        names: {
+            blanking: ['army', 'flame', 'land'],
+        },
+        exeptions: {
+            blanking: ['lightning', 'mountain'],
+        },
+        number: {},
     },
     //leader ================
     {
@@ -414,6 +689,41 @@ const cards = [
             return 0
         },
     },
+    {
+        name: 'princess',
+        suit: 'leader',
+        power: 2,
+        blanked: false,
+        action: ['inc each'],
+        names: {
+            increasing: ['wizard', 'leader', 'army'],
+        },
+        exeptions: {
+            increasing: ['princess'],
+        },
+        number: {
+            increasing: 8,
+        },
+    },
+    {
+        name: 'empress',
+        suit: 'leader',
+        power: 10,
+        blanked: false,
+        action: ['inc each', 'dec each'],
+        names: {
+            increasing: ['army'],
+            decreasing: ['leader'],
+        },
+        exeptions: {
+            increasing: [],
+            decreasing: ['empress'],
+        },
+        number: {
+            increasing: 10,
+            decreasing: 5,
+        },
+    },
     //wizard ===================
     {
         name: 'collector',
@@ -453,6 +763,55 @@ const cards = [
             if(areOdd.length === powers.length) return 50
             if(areOdd.length > 0) return 3 * areOdd.length
             else return 0
+        },
+    },
+    {
+        name: 'elemental enchantress',
+        suit: 'wizard',
+        power: 5,
+        blanked: false,
+        action: ['inc each'],
+        names: {
+            increasing: ['land', 'weather', 'flood', 'flame'],
+        },
+        exeptions: {
+            increasing: [],
+        },
+        number: {
+            increasing: 5,
+        },
+    },
+    {
+        name: 'beastmaster',
+        suit: 'wizard',
+        power: 9,
+        blanked: false,
+        action: ['inc each', 'clear card'],
+        names: {
+            increasing: ['beast'],
+            clearing: ['beast'],
+        },
+        exeptions: {
+            increasing: [],
+        },
+        number: {
+            increasing: 9,
+        },
+    },
+    {
+        name: 'warlock lord',
+        suit: 'wizard',
+        power: 25,
+        blanked: false,
+        action: ['dec each'],
+        names: {
+            decreasing: ['leader', 'wizard'],
+        },
+        exeptions: {
+            increasing: ['warlock lord'],
+        },
+        number: {
+            decreasing: 10,
         },
     },
 ]

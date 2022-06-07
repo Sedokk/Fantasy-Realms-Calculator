@@ -7,7 +7,7 @@ let points = 0;
 
 
 
-hand = ['rangers', 'forest', 'candle', 'protection rune', 'elven archers', 'elven longbow', 'rainstorm']
+hand = ['warship', 'forest', 'swamp', 'protection rune', 'great flood', 'elven longbow', 'rainstorm']
 
 const handObj = hand.map(e => {
     const obj = cards.find(el => el.name == e)
@@ -142,12 +142,20 @@ function specialsClear(arr) {
     })
 }
 
+function specialsBefore(arr) {
+    arr.forEach(e => {
+        if(!e.action.includes('special before')) return
+        e.special(arr)
+    })
+}
+
 
 
 //=================================
 //call
 
 function count(arr) {
+    specialsBefore(arr);
     blanking(arr);
     clearing(arr);
     specialsClear(arr);
