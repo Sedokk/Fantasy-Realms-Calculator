@@ -58,6 +58,38 @@ const cards = [
             decreasing: 2,
         },
     },
+    {
+        name: 'light cavalry',
+        suit: 'army',
+        power: 17,
+        blanked: false,
+        action: ['dec each'],
+        names: {
+            decreasing: ['land'],
+        },
+        exeptions: {
+            decreasing: [],
+        },
+        number: {
+            decreasing: 2,
+        },
+    },
+    {
+        name: 'celestial knights',
+        suit: 'army',
+        power: 20,
+        blanked: false,
+        action: ['dec each'],
+        names: {
+            decreasing: ['leader'],
+        },
+        exeptions: {
+            decreasing: [],
+        },
+        number: {
+            decreasing: 8,
+        },
+    },
     //land =====================
     {
         name: 'forest',
@@ -73,6 +105,72 @@ const cards = [
         },
         number: {
             increasing: 12,
+        },
+    },
+    {
+        name: 'earth elemental',
+        suit: 'land',
+        power: 4,
+        blanked: false,
+        action: ['inc each'],
+        names: {
+            increasing: ['land'],
+        },
+        exeptions: {
+            increasing: ['earth elemental'],
+        },
+        number: {
+            increasing: 15,
+        },
+    },
+    {
+        name: 'underground caverns',
+        suit: 'land',
+        power: 6,
+        blanked: false,
+        action: ['inc pres', 'clearing card'],
+        names: {
+            increasing: ['dragon', 'dwarvish infantry'],
+            clearing: ['weather'],
+        },
+        exeptions: {
+            increasing: [],
+        },
+        number: {
+            increasing: 25,
+        },
+    },
+    {
+        name: 'bell tower',
+        suit: 'land',
+        power: 8,
+        blanked: false,
+        action: ['inc pres'],
+        names: {
+            increasing: ['wizard'],
+        },
+        exeptions: {
+            increasing: [],
+        },
+        number: {
+            increasing: 15,
+        },
+    },
+    {
+        name: 'mountain',
+        suit: 'land',
+        power: 9,
+        blanked: false,
+        action: ['inc pres all', 'clearing card'],
+        names: {
+            increasing: ['smoke', 'wildfire'],
+            clearing: ['flood'],
+        },
+        exeptions: {
+            increasing: [],
+        },
+        number: {
+            increasing: 50,
         },
     },
     //flame =====================
