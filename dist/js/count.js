@@ -46,7 +46,7 @@ function clearing(arr) {
     arr.forEach(e => {
         if(!e.action.includes('clearing card')) return
         arr.forEach(el => {
-            if(e.names.pardoning.includes(el.name) || e.names.pardoning.includes(el.suit)) {
+            if(e.names.clearing.includes(el.name) || e.names.clearing.includes(el.suit)) {
                 el.blanked = false;
                 el.cleared = true;
                 console.log('pardoned: ', el.name);
