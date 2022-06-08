@@ -6,7 +6,7 @@ const cards = [
         suit: 'army',
         power: 5,
         blanked: false,
-        action: ['inc each', 'special clear'],
+        action: ['inc each', 'special before'],
         names: {
             increasing: ['land'],
         },
@@ -18,11 +18,14 @@ const cards = [
         },
         special(arr) {
             arr.forEach(e => {
-                if (e.suit == 'army') e.blanked = false;
-                if (!e.names.decreasing) return
-                const index = e.names.decreasing.findIndex(e => e.suit === 'army')
-                if (index === -1) return
-                namesDec.splice(index, 1)
+                if (e.names.decreasing) {
+                    const index = e.names.decreasing.indexOf('army')
+                    if (index !== -1) e.names.decreasing.splice(index, 1)
+                }
+                if (e.names.blanking) {
+                    const index = e.names.blanking.indexOf('army')
+                    if (index !== -1) e.names.blanking.splice(index, 1)
+                }
             })
         },
     },
@@ -474,6 +477,47 @@ const cards = [
                 e.blanked = false;
                 e.cleared = true;
             });
+        },
+    },
+    {
+        name: 'gem of order',
+        suit: 'artifact',
+        power: 5,
+        blanked: false,
+        action: ['special plus'],
+        names: {},
+        exeptions: {},
+        number: {},
+        special(arr) {
+            const sortedArr = arr
+                .map(e => e.power)
+                .sort((a, b) => a - b)
+            let label = 0;
+            let indicator = 0
+            const subsequenceArr = sortedArr.reduce((acc, e, ind, arr) => {
+                const next = arr[ind + 1]
+                if (e === next - 1 && (acc.length === 0 || label === 0)) {
+                    acc.push(1)
+                    label = 1
+                }
+                if (e === next - 1 && label === 1) acc[indicator]++
+                if (e !== next - 1 && label === 0) {
+                    acc.push(1)
+                    indicator++
+                }
+                if (e !== next - 1 && label === 1) {
+                    label = 0
+                    indicator++
+                }
+                return acc
+            }, [])
+            const maxValue = Math.max(...subsequenceArr)
+            if (maxValue === 7) return 150
+            if (maxValue === 6) return 100
+            if (maxValue === 5) return 60
+            if (maxValue === 4) return 30
+            if (maxValue === 3) return 10
+            if (maxValue < 3) return 0
         },
     },
     //beast =====================

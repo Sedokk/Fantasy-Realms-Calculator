@@ -7,7 +7,7 @@ let points = 0;
 
 
 
-hand = ['warship', 'forest', 'swamp', 'protection rune', 'great flood', 'elven longbow', 'rainstorm']
+hand = ['gem of order', 'forest', 'world tree', 'unicorn', 'air elemental', 'elven longbow', 'queen']
 
 const handObj = hand.map(e => {
     const obj = cards.find(el => el.name == e)
