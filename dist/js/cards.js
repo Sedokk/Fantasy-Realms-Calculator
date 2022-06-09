@@ -82,7 +82,7 @@ const cards = [
         suit: 'army',
         power: 20,
         blanked: false,
-        action: ['dec each'],
+        action: ['dec abs'],
         names: {
             decreasing: ['leader'],
         },

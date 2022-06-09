@@ -1,17 +1,16 @@
 
-import cards from './cards.js'
 
-let hand = []
+import {onClick, hand} from './createCards.js'
 
 let points = 0;
 
-
-
-hand = ['gem of order', 'forest', 'world tree', 'unicorn', 'air elemental', 'elven longbow', 'queen']
-
-const handObj = hand.map(e => {
-    const obj = cards.find(el => el.name == e)
-    return e = obj
+const cardsBtn = document.querySelectorAll('.cards__card')
+cardsBtn.forEach(e => {
+    e.addEventListener('click', (ev) => {
+        points = 0;
+        onClick(ev)
+        if (hand.length > 0) count(hand);
+    })
 })
 
 
@@ -164,10 +163,9 @@ function count(arr) {
     specialsPlus(arr);
     countingDec(arr);
     console.log(points);
-    console.log(handObj);
+    console.log(hand);
 }
 
-count(handObj);
 
 
 
