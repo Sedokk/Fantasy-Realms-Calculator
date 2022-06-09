@@ -153,6 +153,9 @@ function specialsBefore(arr) {
 //=================================
 //call
 
+const pointsNode = document.querySelector('.hand__points')
+const cardCountNode = document.querySelector('.hand__cards-amount')
+
 function count(arr) {
     specialsBefore(arr);
     blanking(arr);
@@ -164,6 +167,8 @@ function count(arr) {
     countingDec(arr);
     console.log(points);
     console.log(hand);
+    pointsNode.innerText = points;
+    cardCountNode.innerText = hand.length
 }
 
 
