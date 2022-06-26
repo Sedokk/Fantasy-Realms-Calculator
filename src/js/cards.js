@@ -663,7 +663,7 @@ const cards = [
             decreasing: [],
         },
         number: {
-            increasing: 3,
+            decreasing: 3,
         },
     },
     {

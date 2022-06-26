@@ -17,6 +17,16 @@ function onClick(e) {
         const obj = cards.find(el => el.name == e)
         return e = obj
     })
+    function insertion() {
+        const handNode = document.querySelector('.hand__card-wrapper')
+        const html = `
+        <div class="hand__card">
+            <span class="hand__card-name">${e.target.innerText.replace(/\d/g, '')}</span>
+            <span class="hand__card-power">${hand.find(e => e.name === name).power}</span></span>
+        </div>`
+        handNode.insertAdjacentHTML('afterbegin', html)
+    }
+    insertion();
 }
 
 export {onClick, hand}

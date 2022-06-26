@@ -5,17 +5,9 @@ body {
 
 main {
     display: flex;
-    justify-content: space-between;
+    gap: 0 30px;
 }
 
-.scheme {
-    background-color: transparent;
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-    border: 1px black solid;
-    border-radius: 30px;
-    padding: 10px 15px;
-    margin-bottom: 20px;
-}
 
 button span {
     background-color: lightgray;
@@ -26,7 +18,7 @@ button span {
 }
 
 .cards {
-    max-width: 60%;
+    max-width: 65%;
 	&__suit-wrapper {
         margin-bottom: 10px;
         &:last-child {
