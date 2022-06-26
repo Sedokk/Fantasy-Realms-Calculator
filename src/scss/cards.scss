@@ -84,6 +84,12 @@ button span {
         border-radius: 30px;
         padding: 8px 20px;
         background-color: white;
+        transition: .2s;
+        &:hover {
+            background-color: grey;
+            color: white;
+            transition: .2s;
+        }
         &_army {
             border: 1px rgb(66, 66, 66) solid;
             color: rgb(66, 66, 66);

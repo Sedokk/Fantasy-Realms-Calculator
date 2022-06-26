@@ -512,7 +512,7 @@ const cards = [
                 return acc
             }, [])
             const maxValue = Math.max(...subsequenceArr)
-            if (maxValue === 7) return 150
+            if (maxValue > 6) return 150
             if (maxValue === 6) return 100
             if (maxValue === 5) return 60
             if (maxValue === 4) return 30

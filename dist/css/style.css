@@ -205,6 +205,17 @@ button span {
   border-radius: 30px;
   padding: 8px 20px;
   background-color: white;
+  -webkit-transition: 0.2s;
+  -o-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.cards__card:hover {
+  background-color: grey;
+  color: white;
+  -webkit-transition: 0.2s;
+  -o-transition: 0.2s;
+  transition: 0.2s;
 }
 
 .cards__card_army {

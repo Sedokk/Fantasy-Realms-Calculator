@@ -1,7 +1,7 @@
 import cards from './cards.js'
 
 let hand;
-const handNames = new Set;
+const handNames = new Set();
 
 function onClick(e) {
     if (handNames.size > 6) return
