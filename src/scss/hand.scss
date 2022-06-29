@@ -23,6 +23,7 @@
         align-items: center;
         justify-content: space-between;
         margin-bottom: 20px;
+        position: relative;
         &:last-child {
             margin-bottom: 0;
         }
@@ -38,6 +39,22 @@
             background-color: grey;
             padding: 5px;
             border-radius: 50%;
+        }
+        &-btn {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 15px;
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+            border: 1px black solid;
+            border-radius: 30px;
+            padding: 6px 15px;
+            background-color: white;
+            cursor: pointer;
+            &:active {
+                background-color: black;
+                color: white;
+            }
         }
     }
 }

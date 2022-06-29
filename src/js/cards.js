@@ -447,6 +447,19 @@ const cards = [
         },
     },
     {
+        name: 'book of changes',
+        suit: 'artifact',
+        power: 3,
+        blanked: false,
+        action: ['choose'],
+        names: {},
+        exeptions: {},
+        number: {},
+        special(arr) {
+            console.log(this.name);
+        },
+    },
+    {
         name: 'shield of keth',
         suit: 'artifact',
         power: 4,
@@ -635,6 +648,19 @@ const cards = [
         },
     },
     {
+        name: 'island',
+        suit: 'flood',
+        power: 14,
+        blanked: false,
+        action: ['choose'],
+        names: {},
+        exeptions: {},
+        number: {},
+        special(arr) {
+            console.log(this.name);
+        },
+    },
+    {
         name: 'water elemental',
         suit: 'flood',
         power: 4,
@@ -810,6 +836,19 @@ const cards = [
         },
     },
     {
+        name: 'necromancer',
+        suit: 'wizard',
+        power: 3,
+        blanked: false,
+        action: ['hz'],
+        names: {},
+        exeptions: {},
+        number: {},
+        special(arr) {
+            
+        },
+    },
+    {
         name: 'elemental enchantress',
         suit: 'wizard',
         power: 5,
@@ -856,6 +895,46 @@ const cards = [
         },
         number: {
             decreasing: 10,
+        },
+    },
+    //wild =====================
+    {
+        name: 'shapeshifter',
+        suit: 'wild',
+        power: 0,
+        blanked: false,
+        action: ['choose'],
+        names: {},
+        exeptions: {},
+        number: {},
+        special(arr) {
+            console.log(this.name);
+        },
+    },
+    {
+        name: 'mirage',
+        suit: 'wild',
+        power: 0,
+        blanked: false,
+        action: ['choose'],
+        names: {},
+        exeptions: {},
+        number: {},
+        special(arr) {
+            console.log(this.name);
+        },
+    },
+    {
+        name: 'doppelganger',
+        suit: 'wild',
+        power: 0,
+        blanked: false,
+        action: ['choose'],
+        names: {},
+        exeptions: {},
+        number: {},
+        special(arr) {
+            console.log(this.name);
         },
     },
 ]

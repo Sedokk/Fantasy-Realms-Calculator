@@ -290,6 +290,7 @@ button span {
       -ms-flex-pack: justify;
           justify-content: space-between;
   margin-bottom: 20px;
+  position: relative;
 }
 
 .hand__card:last-child {
@@ -308,6 +309,26 @@ button span {
   background-color: grey;
   padding: 5px;
   border-radius: 50%;
+}
+
+.hand__card-btn {
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+  font-size: 15px;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  border: 1px black solid;
+  border-radius: 30px;
+  padding: 6px 15px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.hand__card-btn:active {
+  background-color: black;
+  color: white;
 }
 
 @media (prefers-reduced-motion: reduce) {
