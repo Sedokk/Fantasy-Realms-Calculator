@@ -25,10 +25,9 @@ function onCardBtnClickChoose() {
     console.log(this.dataset.name);
 }
 
+const cardsAllowedNode = document.querySelector('.hand__cards-allowed')
 const clearBtn = document.querySelector('.hand__clear')
 clearBtn.addEventListener('click', onClearHand)
-const cardsAllowedNode = document.querySelector('.hand__cards-allowed')
-
 
 function onClearHand() {
     hand.length = 0;
@@ -38,6 +37,23 @@ function onClearHand() {
     count(hand);
     cardsAllowedNode.innerText = 7;
 }
+
+const handNode = document.querySelector('.hand__card-wrapper')
+handNode.addEventListener('click', onClearCard)
+
+function onClearCard(ev) {
+    if (ev.target.classList.contains('hand__card') || ev.target.tagName === 'SPAN') {
+        const deletingCard = ev.target.closest('.hand__card');
+        const cardName = deletingCard.dataset.cardname
+        deletingCard.remove();
+        const cardInd = handNames.indexOf(cardName)
+        handNames.splice(cardInd, 1);
+        hand.splice(cardInd, 1);
+        count(hand);
+        if (cardName === 'necromancer') cardsAllowedNode.innerText = 7;
+    }
+}
+
 //==========================
 //base functions
 
@@ -181,6 +197,7 @@ const pointsNode = document.querySelector('.hand__points')
 const cardCountNode = document.querySelector('.hand__cards-amount')
 
 function count(arr) {
+    points = 0;
     specialsBefore(arr);
     blanking(arr);
     clearing(arr);

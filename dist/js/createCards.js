@@ -4,6 +4,7 @@ import onChoose from './count.js'
 let hand;
 const handNames = [];
 const cardsAllowedNode = document.querySelector('.hand__cards-allowed')
+const handNode = document.querySelector('.hand__card-wrapper')
 
 function onClick(e) {
 
@@ -39,7 +40,6 @@ function onClick(e) {
 }
 
 function render() {
-    const handNode = document.querySelector('.hand__card-wrapper')
     handNode.innerHTML = '';
     hand.forEach(elem => {
         
