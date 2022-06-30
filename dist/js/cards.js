@@ -840,13 +840,10 @@ const cards = [
         suit: 'wizard',
         power: 3,
         blanked: false,
-        action: ['hz'],
+        action: [],
         names: {},
         exeptions: {},
         number: {},
-        special(arr) {
-            
-        },
     },
     {
         name: 'elemental enchantress',

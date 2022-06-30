@@ -3,12 +3,30 @@
 
 .hand {
     flex-grow: 1;
-	&__metrics {
+    &__top-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         margin-bottom: 20px;
+    }
+	&__metrics {
         font-size: 40px;
         font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
         color: grey;
         
+    }
+    &__clear {
+        font-size: 18px;
+        font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+        border: 1px black solid;
+        border-radius: 30px;
+        padding: 8px 25px;
+        background-color: white;
+        cursor: pointer;
+        &:active {
+            background-color: black;
+            color: white;
+        }
     }
 	&__points {}
 	&__cards-amount {}

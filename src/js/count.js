@@ -1,19 +1,43 @@
 
 
-import {onClick, hand} from './createCards.js'
+import {onClick, hand, render, handNames} from './createCards.js'
 
 let points = 0;
 
 const cardsBtn = document.querySelectorAll('.cards__card')
 cardsBtn.forEach(e => {
-    e.addEventListener('click', (ev) => {
-        points = 0;
-        onClick(ev)
-        if (hand.length > 0) count(hand);
-    })
+    e.addEventListener('click', onCardBtnClick)
 })
+function onCardBtnClick(ev) {
+    points = 0;
+    onClick(ev)
+    if (hand.length > 0) count(hand);
+}
+
+function onChoose() {
+    cardsBtn.forEach(e => {
+        e.removeEventListener('click', onCardBtnClick)
+        e.addEventListener('click', onCardBtnClickChoose)
+    })
+}
+
+function onCardBtnClickChoose() {
+    console.log(this.dataset.name);
+}
+
+const clearBtn = document.querySelector('.hand__clear')
+clearBtn.addEventListener('click', onClearHand)
+const cardsAllowedNode = document.querySelector('.hand__cards-allowed')
 
 
+function onClearHand() {
+    hand.length = 0;
+    handNames.length = 0;
+    render();
+    points = 0;
+    count(hand);
+    cardsAllowedNode.innerText = 7;
+}
 //==========================
 //base functions
 
@@ -173,7 +197,8 @@ function count(arr) {
 
 
 //=======================
-//hover
+//export
+export default onChoose
 
 
 
