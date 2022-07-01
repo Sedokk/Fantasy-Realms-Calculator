@@ -33,10 +33,6 @@ function onClick(e) {
     })
     
     render();
-    const chooseBtns = document.querySelectorAll('.hand__card-btn')
-    chooseBtns.forEach(e => {
-        e.addEventListener('click', onChoose)
-    })
 }
 
 function render() {

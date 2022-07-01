@@ -1,6 +1,7 @@
 
 
 import {onClick, hand, render, handNames} from './createCards.js'
+import cards from './cards.js'
 
 let points = 0;
 
@@ -12,17 +13,96 @@ function onCardBtnClick(ev) {
     points = 0;
     onClick(ev)
     if (hand.length > 0) count(hand);
-}
-
-function onChoose() {
-    cardsBtn.forEach(e => {
-        e.removeEventListener('click', onCardBtnClick)
-        e.addEventListener('click', onCardBtnClickChoose)
+    const chooseBtns = document.querySelectorAll('.hand__card-btn')
+    // Добавляем события на кнопки Choose
+    chooseBtns.forEach(el => {
+        el.addEventListener('click', onChoose)
     })
 }
 
-function onCardBtnClickChoose() {
-    console.log(this.dataset.name);
+//Переменные для отслеживания изменяющей карты
+let currentCard;
+let currentCardName;
+let currentBtn;
+// При нажатии на кнопку Choose
+function onChoose() {
+    currentCard = this.closest('.hand__card');
+    currentCardName = currentCard.dataset.cardname;
+
+    if (currentCardName === 'shapeshifter' || currentCardName === 'mirage') {
+        cardsBtn.forEach(e => {
+            e.removeEventListener('click', onCardBtnClick)
+            e.addEventListener('click', onChooseCardBtnClick)
+        })
+        //Меняю функцию кнопки
+        currentBtn = currentCard.querySelector('button')
+        currentBtn.removeEventListener('click', onChoose)
+        currentBtn.addEventListener('click', onCancel)
+        currentBtn.innerText = 'Cancel';
+    }
+    if (currentCardName === 'book of changes') {
+        
+    }
+    if (currentCardName === 'doppelganger') {
+
+    }
+    if (currentCardName === 'island') {
+
+    }
+
+    
+}
+function onCancel() {
+    cardsBtn.forEach(e => {
+        e.removeEventListener('click', onChooseCardBtnClick)
+        e.addEventListener('click', onCardBtnClick)
+    })
+    currentBtn.removeEventListener('click', onCancel)
+    currentBtn.addEventListener('click', onChoose)
+    currentBtn.innerText = 'Choose'
+}
+// Для shapeshifter и mirage
+function onChooseCardBtnClick(ev) {
+    //Массивы с мастями для каждого из джокеров
+    const shapeshifter = ['artifact', 'leader', 'wizard', 'weeapon', 'beast']
+    const mirage = ['army', 'land', 'weather', 'flood', 'flame']
+    const name = ev.target.closest('.cards__card').dataset.name
+    //Создаю объект карты без силы, бонусов и тд
+    const cardObj = cards.find(e => e.name === name);
+    if (currentCardName === 'mirage') {
+        if (!mirage.includes(cardObj.suit)) return
+    }
+    if (currentCardName === 'shapeshifter') {
+        if (!shapeshifter.includes(cardObj.suit)) return
+    }
+    const changedCardObj = {
+        name,
+        suit: cardObj.suit,
+        power: 0,
+        blanked: false,
+        action: ['choose'],
+        names: {},
+        exeptions: {},
+        number: {},
+    }
+    //Меняю изменяющую карту на новую(выбранную)
+    const index = handNames.indexOf(currentCardName)
+    handNames.splice(index, 1, name)
+    hand.splice(index, 1, changedCardObj)
+    const cardNameNode = currentCard.querySelector('.hand__card-name')
+    cardNameNode.innerText = name;
+    count(hand)
+    //Возвращаю всё как было
+    cardsBtn.forEach(e => {
+        e.removeEventListener('click', onChooseCardBtnClick)
+        e.addEventListener('click', onCardBtnClick)
+    })
+    currentBtn.removeEventListener('click', onCancel)
+    currentBtn.addEventListener('click', onChoose)
+    currentBtn.innerText = 'Choose'
+    currentCard = '';
+    currentCardName = '';
+    currentBtn = '';
 }
 
 const cardsAllowedNode = document.querySelector('.hand__cards-allowed')
