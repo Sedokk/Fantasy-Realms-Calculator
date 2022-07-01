@@ -1,6 +1,6 @@
 
 
-import {onClick, hand, render, handNames} from './createCards.js'
+import {onClick, hand, render} from './createCards.js'
 import cards from './cards.js'
 
 let points = 0;
@@ -32,12 +32,12 @@ function onChoose() {
     if (currentCardName === 'shapeshifter' || currentCardName === 'mirage') {
         cardsBtn.forEach(e => {
             e.removeEventListener('click', onCardBtnClick)
-            e.addEventListener('click', onChooseCardBtnClick)
+            e.addEventListener('click', onShapeshifterMirage)
         })
         //Меняю функцию кнопки
         currentBtn = currentCard.querySelector('button')
         currentBtn.removeEventListener('click', onChoose)
-        currentBtn.addEventListener('click', onCancel)
+        currentBtn.addEventListener('click', onCancelShapeshMirage)
         currentBtn.innerText = 'Cancel';
     }
     if (currentCardName === 'book of changes') {
@@ -52,17 +52,17 @@ function onChoose() {
 
     
 }
-function onCancel() {
+function onCancelShapeshMirage() {
     cardsBtn.forEach(e => {
-        e.removeEventListener('click', onChooseCardBtnClick)
+        e.removeEventListener('click', onShapeshifterMirage)
         e.addEventListener('click', onCardBtnClick)
     })
-    currentBtn.removeEventListener('click', onCancel)
+    currentBtn.removeEventListener('click', onCancelShapeshMirage)
     currentBtn.addEventListener('click', onChoose)
     currentBtn.innerText = 'Choose'
 }
 // Для shapeshifter и mirage
-function onChooseCardBtnClick(ev) {
+function onShapeshifterMirage(ev) {
     //Массивы с мастями для каждого из джокеров
     const shapeshifter = ['artifact', 'leader', 'wizard', 'weeapon', 'beast']
     const mirage = ['army', 'land', 'weather', 'flood', 'flame']
@@ -86,18 +86,17 @@ function onChooseCardBtnClick(ev) {
         number: {},
     }
     //Меняю изменяющую карту на новую(выбранную)
-    const index = handNames.indexOf(currentCardName)
-    handNames.splice(index, 1, name)
+    const index = hand.findIndex(e => e.name === currentCardName)
     hand.splice(index, 1, changedCardObj)
     const cardNameNode = currentCard.querySelector('.hand__card-name')
     cardNameNode.innerText = name;
     count(hand)
     //Возвращаю всё как было
     cardsBtn.forEach(e => {
-        e.removeEventListener('click', onChooseCardBtnClick)
+        e.removeEventListener('click', onShapeshifterMirage)
         e.addEventListener('click', onCardBtnClick)
     })
-    currentBtn.removeEventListener('click', onCancel)
+    currentBtn.removeEventListener('click', onCancelShapeshMirage)
     currentBtn.addEventListener('click', onChoose)
     currentBtn.innerText = 'Choose'
     currentCard = '';
@@ -111,8 +110,7 @@ clearBtn.addEventListener('click', onClearHand)
 
 function onClearHand() {
     hand.length = 0;
-    handNames.length = 0;
-    render();
+    handNode.innerHTML = '';
     points = 0;
     count(hand);
     cardsAllowedNode.innerText = 7;
@@ -126,8 +124,7 @@ function onClearCard(ev) {
         const deletingCard = ev.target.closest('.hand__card');
         const cardName = deletingCard.dataset.cardname
         deletingCard.remove();
-        const cardInd = handNames.indexOf(cardName)
-        handNames.splice(cardInd, 1);
+        const cardInd = hand.findIndex(e => e.name === cardName)
         hand.splice(cardInd, 1);
         count(hand);
         if (cardName === 'necromancer') cardsAllowedNode.innerText = 7;
