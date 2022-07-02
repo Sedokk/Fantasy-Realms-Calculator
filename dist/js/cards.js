@@ -866,7 +866,7 @@ const cards = [
         suit: 'wizard',
         power: 9,
         blanked: false,
-        action: ['inc each', 'clear card'],
+        action: ['inc each', 'clearing card'],
         names: {
             increasing: ['beast'],
             clearing: ['beast'],

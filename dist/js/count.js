@@ -5,7 +5,10 @@ import cards from './cards.js'
 
 let points = 0;
 
+let cardsInHand;
+
 const cardsBtn = document.querySelectorAll('.cards__card')
+const handNode = document.querySelector('.hand__card-wrapper')
 cardsBtn.forEach(e => {
     e.addEventListener('click', onCardBtnClick)
 })
@@ -18,14 +21,43 @@ function onCardBtnClick(ev) {
     chooseBtns.forEach(el => {
         el.addEventListener('click', onChoose)
     })
+    cardsInHand = handNode.querySelectorAll('.hand__card');
 }
+
+// Удаление карт
+const cardsAllowedNode = document.querySelector('.hand__cards-allowed')
+const clearBtn = document.querySelector('.hand__clear')
+clearBtn.addEventListener('click', onClearHand)
+handNode.addEventListener('click', onClearCard)
+
+function onClearHand() {
+    hand.length = 0;
+    handNode.innerHTML = '';
+    points = 0;
+    count(hand);
+    cardsAllowedNode.innerText = 7;
+}
+
+function onClearCard(ev) {
+    if (ev.target.classList.contains('hand__card') || ev.target.tagName === 'SPAN') {
+        const deletingCard = ev.target.closest('.hand__card');
+        const cardName = deletingCard.dataset.cardname
+        deletingCard.remove();
+        const cardInd = hand.findIndex(e => e.name === cardName)
+        hand.splice(cardInd, 1);
+        count(hand);
+        if (cardName === 'necromancer') cardsAllowedNode.innerText = 7;
+    }
+}
+
 
 //Переменные для отслеживания изменяющей карты
 let currentCard;
 let currentCardName;
 let currentBtn;
 // При нажатии на кнопку Choose
-function onChoose() {
+function onChoose(ev) {
+    ev.stopPropagation()
     currentCard = this.closest('.hand__card');
     currentCardName = currentCard.dataset.cardname;
 
@@ -44,13 +76,75 @@ function onChoose() {
         
     }
     if (currentCardName === 'doppelganger') {
-
+        cardsBtn.forEach(e => {
+            e.removeEventListener('click', onCardBtnClick)
+        })
+        handNode.removeEventListener('click', onClearCard)
+        cardsInHand.forEach(e => {
+            e.addEventListener('click', onDoppelganger)
+        })
+        //Меняю функцию кнопки
+        currentBtn = currentCard.querySelector('button')
+        currentBtn.removeEventListener('click', onChoose)
+        currentBtn.addEventListener('click', onCancelDoppelganger)
+        currentBtn.innerText = 'Cancel';
     }
     if (currentCardName === 'island') {
 
     }
 
     
+}
+function onDoppelganger(ev) {
+    ev.stopPropagation();
+    const name = ev.target.dataset.cardname;
+    const obj = cards.find(e => e.name === name);
+    const penalties = ['bl', 'bl self', 'dec each', 'dec pres', 'dec abs']
+    const allowedActions = obj.action.filter(e => penalties.includes(e))
+    const changedObj = {
+        name,
+        suit: obj.suit,
+        power: obj.power,
+        blanked: false,
+        action: ['choose', ...allowedActions],
+        names: {...obj.names},
+        exeptions: {...obj.exeptions},
+        number: {...obj.number},
+    }
+    const index = hand.findIndex(e => e.name === currentCardName)
+    hand.splice(index, 1, changedObj)
+    const cardNameNode = currentCard.querySelector('.hand__card-name')
+    const cardPowerNode = currentCard.querySelector('.hand__card-power')
+    cardNameNode.innerText = name;
+    cardPowerNode.innerText = changedObj.power;
+    count(hand)
+    //Возвращаю всё как было
+    cardsBtn.forEach(e => {
+        e.addEventListener('click', onCardBtnClick)
+    })
+    cardsInHand.forEach(e => {
+        e.removeEventListener('click', onDoppelganger)
+    })
+    currentBtn.removeEventListener('click', onCancelDoppelganger)
+    currentBtn.addEventListener('click', onChoose)
+    currentBtn.innerText = 'Choose'
+    currentCard = '';
+    currentCardName = '';
+    currentBtn = '';
+    handNode.addEventListener('click', onClearCard)
+}
+function onCancelDoppelganger(ev) {
+    ev.stopPropagation()
+    cardsBtn.forEach(e => {
+        e.addEventListener('click', onCardBtnClick)
+    })
+    cardsInHand.forEach(e => {
+        e.removeEventListener('click', onDoppelganger)
+    })
+    currentBtn.removeEventListener('click', onCancelDoppelganger)
+    currentBtn.addEventListener('click', onChoose)
+    currentBtn.innerText = 'Choose'
+    handNode.addEventListener('click', onClearCard)
 }
 function onCancelShapeshMirage() {
     cardsBtn.forEach(e => {
@@ -104,32 +198,7 @@ function onShapeshifterMirage(ev) {
     currentBtn = '';
 }
 
-const cardsAllowedNode = document.querySelector('.hand__cards-allowed')
-const clearBtn = document.querySelector('.hand__clear')
-clearBtn.addEventListener('click', onClearHand)
 
-function onClearHand() {
-    hand.length = 0;
-    handNode.innerHTML = '';
-    points = 0;
-    count(hand);
-    cardsAllowedNode.innerText = 7;
-}
-
-const handNode = document.querySelector('.hand__card-wrapper')
-handNode.addEventListener('click', onClearCard)
-
-function onClearCard(ev) {
-    if (ev.target.classList.contains('hand__card') || ev.target.tagName === 'SPAN') {
-        const deletingCard = ev.target.closest('.hand__card');
-        const cardName = deletingCard.dataset.cardname
-        deletingCard.remove();
-        const cardInd = hand.findIndex(e => e.name === cardName)
-        hand.splice(cardInd, 1);
-        count(hand);
-        if (cardName === 'necromancer') cardsAllowedNode.innerText = 7;
-    }
-}
 
 //==========================
 //base functions
