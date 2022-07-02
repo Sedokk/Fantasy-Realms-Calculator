@@ -1,11 +1,10 @@
 
 body {
-    background-color: white;
+    background: #242735;
 }
 
 main {
-    display: flex;
-    gap: 0 30px;
+
 }
 
 
@@ -18,7 +17,7 @@ button span {
 }
 
 .cards {
-    max-width: 65%;
+    max-width: 60%;
 	&__suit-wrapper {
         margin-bottom: 10px;
         &:last-child {
@@ -28,6 +27,10 @@ button span {
 	&__suit {
         font-size: 20px;
         font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+        position: relative;
+        left: 45%;
+        display: inline-block;
+        margin-bottom: 10px;
         &_army {
             color: rgb(66, 66, 66);
         }
@@ -68,6 +71,7 @@ button span {
         justify-content: flex-start;
         gap: 10px 10px;
         flex-wrap: wrap;
+        margin-bottom: 15px;
     }
 	&__card {
         font-size: 20px;

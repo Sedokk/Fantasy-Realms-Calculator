@@ -50,7 +50,8 @@ function onClearCard(ev) {
     }
 }
 
-
+//Карты с выбором
+//======================================================================
 //Переменные для отслеживания изменяющей карты
 let currentCard;
 let currentCardName;
@@ -200,10 +201,11 @@ function onShapeshifterMirage(ev) {
 
 
 
-//==========================
+//=====================================================
 //base functions
 
 function blanking(arr) {
+    const warship = arr.some(e => e.name === 'warship')
     arr.forEach(e => {
         if(!e.action.includes('bl')) return
 

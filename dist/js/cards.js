@@ -375,7 +375,7 @@ const cards = [
         suit: 'weapon',
         power: 23,
         blanked: false,
-        action: ['bl self', 'special before'],
+        action: ['bl self'],
         names: {
             blanking: ['flood'],
         },
@@ -383,19 +383,6 @@ const cards = [
             blanking: [],
         },
         number: {},
-        special(arr) {
-            arr.forEach(e => {
-                let index;
-                if (e.name === 'great flood') {
-                    index = e.names.blanking.indexOf('army')
-                    e.names.blanking.splice(index, 1)
-                }
-                if (e.name === 'swamp') {
-                    index = e.names.decreasing.indexOf('army')
-                    e.names.decreasing.splice(index, 1)
-                }
-            })
-        },
     },
     {
         name: 'magic wand',
