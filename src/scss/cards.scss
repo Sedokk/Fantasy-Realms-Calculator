@@ -26,7 +26,7 @@ button span {
     }
 	&__suit {
         font-size: 20px;
-        font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+        font-family: $kiwi, Arial;
         position: relative;
         left: 45%;
         display: inline-block;
@@ -75,7 +75,7 @@ button span {
     }
 	&__card {
         font-size: 20px;
-        font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+        font-family: $kiwi, Arial;
         border: 1px black solid;
         border-radius: 30px;
         padding: 8px 20px;

@@ -2,6 +2,8 @@
 
 /* Указываем box sizing */
 
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Kiwi+Maru:wght@500&display=swap");
+
 *,
 *::before,
 *::after {
@@ -118,7 +120,7 @@ button span {
 
 .cards__suit {
   font-size: 20px;
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-family: "Kiwi Maru", serif, Arial;
   position: relative;
   left: 45%;
   display: inline-block;
@@ -187,7 +189,7 @@ button span {
 
 .cards__card {
   font-size: 20px;
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-family: "Kiwi Maru", serif, Arial;
   border: 1px black solid;
   border-radius: 30px;
   padding: 8px 20px;
@@ -290,13 +292,14 @@ button span {
   font-size: 40px;
   position: absolute;
   top: 105px;
-  left: 110px;
+  left: 105px;
   color: rgb(207, 207, 207);
+  font-family: "Dancing Script", cursive, Arial;
 }
 
 .hand__clear {
   font-size: 18px;
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-family: "Kiwi Maru", serif, Arial;
   border: 1px black solid;
   border-radius: 30px;
   padding: 8px 25px;
