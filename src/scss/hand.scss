@@ -104,7 +104,16 @@ $cardWidth: 120px;
             background-color: red;
         }
         &-btn {
-            display: none;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            height: 30px;
+            font-size: 12px;
+            font-family: $kiwi;
+            background-color: #784726;
+            color: white;
+            border-radius: 5%;
+            
         }
     }
 }
