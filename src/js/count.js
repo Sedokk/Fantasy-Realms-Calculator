@@ -7,6 +7,7 @@ let points = 0;
 
 let cardsInHand;
 
+const cardsSuits = document.querySelectorAll('.cards__suit-wrapper')
 const cardsBtn = document.querySelectorAll('.cards__card')
 const handNode = document.querySelector('.hand__card-wrapper')
 cardsBtn.forEach(e => {
@@ -45,6 +46,20 @@ function onClearCard(ev) {
         deletingCard.remove();
         const cardInd = hand.findIndex(e => e.name === cardName)
         hand.splice(cardInd, 1);
+        //warship
+        if(cardName === 'warship') {
+            hand.forEach(e => {
+                if (e.suit !== 'flood') return
+                if (e.exeptions.blanking.includes('army')) {
+                    const armyIndex = e.exeptions.blanking.indexOf('army')
+                    e.exeptions.blanking.splice(armyIndex, 2)
+                }
+                if (e.exeptions.decreasing.includes('army')) {
+                    const armyIndex = e.exeptions.decreasing.indexOf('army')
+                    e.exeptions.decreasing.splice(armyIndex, 2)
+                }
+            })
+        }
         count(hand);
         if (cardName === 'necromancer') cardsAllowedNode.innerText = 7;
     }
@@ -63,9 +78,23 @@ function onChoose(ev) {
     currentCardName = currentCard.dataset.cardname;
 
     if (currentCardName === 'shapeshifter' || currentCardName === 'mirage') {
+        //Массивы с мастями для каждого из джокеров
+        const shapeshifter = ['artifact', 'leader', 'wizard', 'weapon', 'beast']
+        const mirage = ['army', 'land', 'weather', 'flood', 'flame']
         cardsBtn.forEach(e => {
             e.removeEventListener('click', onCardBtnClick)
             e.addEventListener('click', onShapeshifterMirage)
+        })
+        //Убираю лишние масти
+        cardsSuits.forEach(e => {
+            if (currentCardName === 'mirage') {
+                if (mirage.includes(e.dataset.suit)) return
+                e.style.display = 'none'
+            }
+            if (currentCardName === 'shapeshifter') {
+                if (shapeshifter.includes(e.dataset.suit)) return
+                e.style.display = 'none'
+            }
         })
         //Меняю функцию кнопки
         currentBtn = currentCard.querySelector('button')
@@ -155,21 +184,18 @@ function onCancelShapeshMirage() {
     currentBtn.removeEventListener('click', onCancelShapeshMirage)
     currentBtn.addEventListener('click', onChoose)
     currentBtn.innerText = 'Choose'
+    //Возвращаю масти
+    cardsSuits.forEach(e => {
+        e.style.display = '';
+    })
 }
 // Для shapeshifter и mirage
 function onShapeshifterMirage(ev) {
-    //Массивы с мастями для каждого из джокеров
-    const shapeshifter = ['artifact', 'leader', 'wizard', 'weeapon', 'beast']
-    const mirage = ['army', 'land', 'weather', 'flood', 'flame']
     const name = ev.target.closest('.cards__card').dataset.name
     //Создаю объект карты без силы, бонусов и тд
     const cardObj = cards.find(e => e.name === name);
-    if (currentCardName === 'mirage') {
-        if (!mirage.includes(cardObj.suit)) return
-    }
-    if (currentCardName === 'shapeshifter') {
-        if (!shapeshifter.includes(cardObj.suit)) return
-    }
+
+    
     const changedCardObj = {
         name,
         suit: cardObj.suit,
@@ -194,6 +220,9 @@ function onShapeshifterMirage(ev) {
     currentBtn.removeEventListener('click', onCancelShapeshMirage)
     currentBtn.addEventListener('click', onChoose)
     currentBtn.innerText = 'Choose'
+    cardsSuits.forEach(e => {
+        e.style.display = '';
+    })
     currentCard = '';
     currentCardName = '';
     currentBtn = '';
@@ -205,13 +234,12 @@ function onShapeshifterMirage(ev) {
 //base functions
 
 function blanking(arr) {
-    const warship = arr.some(e => e.name === 'warship')
     arr.forEach(e => {
         if(!e.action.includes('bl')) return
 
         arr.forEach(el => {
-            if(e.exeptions.blanking.includes(el.name) || e.exeptions.blanking.includes(el.suit)) return
             if(e.names.blanking.includes(el.name) || e.names.blanking.includes(el.suit)) el.blanked = true;
+            if(e.exeptions.blanking.includes(el.name) || e.exeptions.blanking.includes(el.suit)) el.blanked = false;
         })
     });
 

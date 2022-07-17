@@ -39,11 +39,11 @@ function render(obj) {
     <div class="hand__card" data-cardname = "${obj.name}">
         <span class="hand__card-name">${obj.name}</span>
         <span class="hand__card-power">${obj.power}</span></span>
-        <div class="hand__card-color"></div>
+        <div class="hand__card-color hand__card-color_${obj.suit}"></div>
         ${btnHTML}
     </div>`
     
-    handNode.insertAdjacentHTML('afterbegin', html)
+    handNode.insertAdjacentHTML('beforeend', html)
     
     
 }

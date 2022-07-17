@@ -67,6 +67,7 @@ $cardWidth: 120px;
         overflow: hidden;
         position: relative;
         border-radius: 5%;
+        box-shadow: -8px 8px #242735c4;
         &-name {
             display: inline-block;
             position: absolute;
@@ -101,7 +102,40 @@ $cardWidth: 120px;
             top: 0;
             height: 100%;
             width: 40%;
-            background-color: red;
+            background-color: transparent;
+            &_army {
+                background-color: grey;
+            }
+            &_artifact {
+                background-color: orange;
+            }
+            &_beast {
+                background-color: green;
+            }
+            &_flame {
+                background-color: orangered;
+            }
+            &_flood {
+                background-color: blue;
+            }
+            &_land {
+                background-color: brown;
+            }
+            &_leader {
+                background-color: purple;
+            }
+            &_weapon {
+                background-color: lightgray;
+            }
+            &_weather {
+                background-color: lightblue;
+            }
+            &_wild {
+                background-color: transparent;
+            }
+            &_wizard {
+                background-color: violet;
+            }
         }
         &-btn {
             position: absolute;
@@ -113,7 +147,7 @@ $cardWidth: 120px;
             background-color: #784726;
             color: white;
             border-radius: 5%;
-            
+
         }
     }
 }
