@@ -1,6 +1,6 @@
 
 
-import {onClick, hand, render} from './createCards.js'
+import {onClick, hand} from './createCards.js'
 import cards from './cards.js'
 
 let points = 0;
@@ -46,23 +46,32 @@ function onClearCard(ev) {
         deletingCard.remove();
         const cardInd = hand.findIndex(e => e.name === cardName)
         hand.splice(cardInd, 1);
-        //warship
-        if(cardName === 'warship') {
-            hand.forEach(e => {
-                if (e.suit !== 'flood') return
-                if (e.exeptions.blanking.includes('army')) {
-                    const armyIndex = e.exeptions.blanking.indexOf('army')
-                    e.exeptions.blanking.splice(armyIndex, 2)
-                }
-                if (e.exeptions.decreasing.includes('army')) {
-                    const armyIndex = e.exeptions.decreasing.indexOf('army')
-                    e.exeptions.decreasing.splice(armyIndex, 2)
-                }
-            })
-        }
+        cardsRecovery(cardName)
         count(hand);
         if (cardName === 'necromancer') cardsAllowedNode.innerText = 7;
     }
+}
+function cardsRecovery(name) {
+    //warship
+    if(name === 'warship') {
+        hand.forEach(e => {
+            if (e.suit !== 'flood') return
+            if (e.exeptions.blanking.includes('added')) {
+                const armyIndex = e.exeptions.blanking.indexOf('added')
+                e.exeptions.blanking.splice(armyIndex, 2)
+            }
+            if (e.exeptions.decreasing.includes('added')) {
+                const armyIndex = e.exeptions.decreasing.indexOf('added')
+                e.exeptions.decreasing.splice(armyIndex, 2)
+            }
+        })
+    }
+    // blocked
+    // cleared
+    // rangers
+    // protection rune
+    // island
+    // wilds!!!
 }
 
 //Карты с выбором
@@ -200,7 +209,7 @@ function onShapeshifterMirage(ev) {
         name,
         suit: cardObj.suit,
         power: 0,
-        blanked: false,
+        status: [],
         action: ['choose'],
         names: {},
         exeptions: {},
@@ -238,8 +247,8 @@ function blanking(arr) {
         if(!e.action.includes('bl')) return
 
         arr.forEach(el => {
-            if(e.names.blanking.includes(el.name) || e.names.blanking.includes(el.suit)) el.blanked = true;
-            if(e.exeptions.blanking.includes(el.name) || e.exeptions.blanking.includes(el.suit)) el.blanked = false;
+            if(e.exeptions.blanking.includes(el.name) || e.exeptions.blanking.includes(el.suit)) return;
+            if(e.names.blanking.includes(el.name) || e.names.blanking.includes(el.suit)) el.status.push('blanked');  
         })
     });
 
@@ -252,8 +261,7 @@ function blankingSelf(arr) {
 
         const exeptions = arr.some(el => e.exeptions.blanking.includes(el.name) || e.exeptions.blanking.includes(el.suit))
         const names = arr.some(el => e.names.blanking.includes(el.name) || e.names.blanking.includes(el.suit))
-        if(exeptions || !names) e.blanked = true;
-        
+        if(exeptions || !names) e.status.push('blanked');
     });
 }
 
@@ -264,7 +272,7 @@ function clearing(arr) {
             if(e.names.clearing.includes(el.name) || e.names.clearing.includes(el.suit)) {
                 el.blanked = false;
                 el.cleared = true;
-                console.log('pardoned: ', el.name);
+                console.log('cleared: ', el.name);
             }
         })
     });
@@ -277,6 +285,7 @@ function countingInc(arr) {
         const namesInc = e.names.increasing;
         const pointsInc = e.number.increasing;
         const exeptionsInc = e.exeptions.increasing;
+        if (e.status.includes('blanked') && !e.status.includes('cleared')) return
 
         if (actions.includes('inc each')) {
             const matchedArr = arr.filter(el => (namesInc.includes(el.name) || namesInc.includes(el.suit)) && (!exeptionsInc.includes(el.name) && !exeptionsInc.includes(el.suit)))
@@ -311,7 +320,7 @@ function countingDec(arr) {
         const pointsDec = e.number.decreasing;
         const exeptionsDec = e.exeptions.decreasing;
 
-        if (e.cleared) return
+        if (e.status.includes('blanked') || e.status.includes('cleared')) return
 
         if (actions.includes('dec each')) {
             const matchedArr = arr.filter(el => (namesDec.includes(el.name) || namesDec.includes(el.suit)) && (!exeptionsDec.includes(el.name) && !exeptionsDec.includes(el.suit)))
@@ -335,7 +344,7 @@ function countingDec(arr) {
 
 function countingBasePower(arr) {
     arr.forEach(e => {
-        if(e.blanked === false) {
+        if(!e.status.includes('blanked') || e.status.includes('cleared')) {
             points += e.power
         }
     })
@@ -373,6 +382,9 @@ const pointsNode = document.querySelector('.hand__points')
 const cardCountNode = document.querySelector('.hand__cards-amount')
 
 function count(arr) {
+    if (arr.length > 0) {
+        arr.forEach(e => e.status = [])
+    }
     points = 0;
     specialsBefore(arr);
     blanking(arr);

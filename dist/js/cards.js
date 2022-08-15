@@ -5,7 +5,7 @@ const cards = [
         name: 'rangers',
         suit: 'army',
         power: 5,
-        blanked: false,
+        status: [],
         action: ['inc each', 'special before'],
         names: {
             increasing: ['land'],
@@ -35,7 +35,7 @@ const cards = [
         name: 'elven archers',
         suit: 'army',
         power: 10,
-        blanked: false,
+        status: [],
         action: ['inc abs'],
         names: {
             increasing: ['weather'],
@@ -53,7 +53,7 @@ const cards = [
         name: 'dwarvish infantry',
         suit: 'army',
         power: 15,
-        blanked: false,
+        status: [],
         action: ['dec each'],
         names: {
             decreasing: ['army'],
@@ -71,7 +71,7 @@ const cards = [
         name: 'light cavalry',
         suit: 'army',
         power: 17,
-        blanked: false,
+        status: [],
         action: ['dec each'],
         names: {
             decreasing: ['land'],
@@ -89,7 +89,7 @@ const cards = [
         name: 'celestial knights',
         suit: 'army',
         power: 20,
-        blanked: false,
+        status: [],
         action: ['dec abs'],
         names: {
             decreasing: ['leader'],
@@ -108,7 +108,7 @@ const cards = [
         name: 'forest',
         suit: 'land',
         power: 7,
-        blanked: false,
+        status: [],
         action: ['inc each'],
         names: {
             increasing: ['beast', 'elven archers'],
@@ -126,7 +126,7 @@ const cards = [
         name: 'earth elemental',
         suit: 'land',
         power: 4,
-        blanked: false,
+        status: [],
         action: ['inc each'],
         names: {
             increasing: ['land'],
@@ -144,7 +144,7 @@ const cards = [
         name: 'underground caverns',
         suit: 'land',
         power: 6,
-        blanked: false,
+        status: [],
         action: ['inc pres', 'clearing card'],
         names: {
             increasing: ['dragon', 'dwarvish infantry'],
@@ -163,7 +163,7 @@ const cards = [
         name: 'bell tower',
         suit: 'land',
         power: 8,
-        blanked: false,
+        status: [],
         action: ['inc pres'],
         names: {
             increasing: ['wizard'],
@@ -181,7 +181,7 @@ const cards = [
         name: 'mountain',
         suit: 'land',
         power: 9,
-        blanked: false,
+        status: [],
         action: ['inc pres all', 'clearing card'],
         names: {
             increasing: ['smoke', 'wildfire'],
@@ -201,7 +201,7 @@ const cards = [
         name: 'lightning',
         suit: 'flame',
         power: 11,
-        blanked: false,
+        status: [],
         action: ['inc pres'],
         names: {
             increasing: ['rainstorm'],
@@ -219,7 +219,7 @@ const cards = [
         name: 'candle',
         suit: 'flame',
         power: 2,
-        blanked: false,
+        status: [],
         action: ['inc pres all'],
         names: {
             increasing: ['book of changes', 'bell tower', 'wizard']
@@ -237,7 +237,7 @@ const cards = [
         name: 'fire elemental',
         suit: 'flame',
         power: 4,
-        blanked: false,
+        status: [],
         action: ['inc each'],
         names: {
             increasing: ['flame']
@@ -255,7 +255,7 @@ const cards = [
         name: 'forge',
         suit: 'flame',
         power: 9,
-        blanked: false,
+        status: [],
         action: ['inc each'],
         names: {
             increasing: ['weapon', 'artifact']
@@ -273,7 +273,7 @@ const cards = [
         name: 'wildfire',
         suit: 'flame',
         power: 40,
-        blanked: false,
+        status: [],
         action: ['bl'],
         names: {
             blanking: ['flood', 'land', 'beast', 'army', 'leader'],
@@ -290,7 +290,7 @@ const cards = [
         name: 'rainstorm',
         suit: 'weather',
         power: 8,
-        blanked: false,
+        status: [],
         action: ['inc each', 'bl'],
         names: {
             increasing: ['flood'],
@@ -309,7 +309,7 @@ const cards = [
         name: 'whirlwind',
         suit: 'weather',
         power: 13,
-        blanked: false,
+        status: [],
         action: ['special plus'],
         names: {},
         exeptions: {
@@ -329,7 +329,7 @@ const cards = [
         name: 'air elemental',
         suit: 'weather',
         power: 4,
-        blanked: false,
+        status: [],
         action: ['inc each'],
         names: {
             increasing: ['weather'],
@@ -347,7 +347,7 @@ const cards = [
         name: 'smoke',
         suit: 'weather',
         power: 27,
-        blanked: false,
+        status: [],
         action: ['bl self'],
         names: {
             blanking: ['flame'],
@@ -363,7 +363,7 @@ const cards = [
         name: 'blizzard',
         suit: 'weather',
         power: 30,
-        blanked: false,
+        status: [],
         action: ['bl', 'dec each'],
         names: {
             blanking: ['flood'],
@@ -383,7 +383,7 @@ const cards = [
         name: 'elven longbow',
         suit: 'weapon',
         power: 3,
-        blanked: false,
+        status: [],
         action: ['inc pres'],
         names: {
             increasing: ['elven archers', 'warlord', 'beastmaster'],
@@ -401,7 +401,7 @@ const cards = [
         name: 'sword of keth',
         suit: 'weapon',
         power: 7,
-        blanked: false,
+        status: [],
         action: ['special plus'],
         names: {},
         exeptions: {
@@ -422,7 +422,7 @@ const cards = [
         name: 'warship',
         suit: 'weapon',
         power: 23,
-        blanked: false,
+        status: [],
         action: ['bl self', 'special before'],
         names: {
             blanking: ['flood'],
@@ -436,8 +436,8 @@ const cards = [
         special(arr) {
             arr.forEach(e => {
                 if (e.suit !== 'flood' || e.exeptions.blanking.includes('added')) return
-                e.exeptions.blanking.push('army', 'added')
-                e.exeptions.decreasing.push('army', 'added')
+                e.exeptions.blanking.push('added', 'army')
+                e.exeptions.decreasing.push('added', 'army')
             });
         }
     },
@@ -445,7 +445,7 @@ const cards = [
         name: 'magic wand',
         suit: 'weapon',
         power: 1,
-        blanked: false,
+        status: [],
         action: ['inc pres'],
         names: {
             increasing: ['wizard'],
@@ -463,10 +463,10 @@ const cards = [
         name: 'war dirigible',
         suit: 'weapon',
         power: 35,
-        blanked: false,
+        status: [],
         action: ['bl self'],
         names: {
-            blanking: ['flood'],
+            blanking: ['army'],
         },
         exeptions: {
             blanking: ['weather'],
@@ -480,7 +480,7 @@ const cards = [
         name: 'world tree',
         suit: 'artifact',
         power: 2,
-        blanked: false,
+        status: [],
         action: ['special plus'],
         names: {},
         exeptions: {
@@ -491,7 +491,7 @@ const cards = [
         number: {},
         special(arr) {
             const suits = arr
-                .filter(e => e.blanked == false)
+                .filter(e => !e.status.includes('blanked'))
                 .map(e => e.suit)
             const suitsUnic = [... new Set(suits)]
             if(suits.length === suitsUnic.length) return 50
@@ -502,7 +502,7 @@ const cards = [
         name: 'book of changes',
         suit: 'artifact',
         power: 3,
-        blanked: false,
+        status: [],
         action: ['choose'],
         names: {},
         exeptions: {
@@ -519,7 +519,7 @@ const cards = [
         name: 'shield of keth',
         suit: 'artifact',
         power: 4,
-        blanked: false,
+        status: [],
         action: ['special plus'],
         names: {},
         exeptions: {
@@ -540,7 +540,7 @@ const cards = [
         name: 'protection rune',
         suit: 'artifact',
         power: 1,
-        blanked: false,
+        status: [],
         action: ['special clear'],
         names: {},
         exeptions: {
@@ -551,8 +551,7 @@ const cards = [
         number: {},
         special(arr) {
             arr.forEach(e => {
-                e.blanked = false;
-                e.cleared = true;
+                e.status.push('cleared');
             });
         },
     },
@@ -560,7 +559,7 @@ const cards = [
         name: 'gem of order',
         suit: 'artifact',
         power: 5,
-        blanked: false,
+        status: [],
         action: ['special plus'],
         names: {},
         exeptions: {
@@ -606,7 +605,7 @@ const cards = [
         name: 'unicorn',
         suit: 'beast',
         power: 9,
-        blanked: false,
+        status: [],
         action: ['special plus'],
         names: {},
         exeptions: {
@@ -627,7 +626,7 @@ const cards = [
         name: 'warhorse',
         suit: 'beast',
         power: 6,
-        blanked: false,
+        status: [],
         action: ['inc pres'],
         names: {
             increasing: ['leader', 'wizard'],
@@ -645,7 +644,7 @@ const cards = [
         name: 'hydra',
         suit: 'beast',
         power: 12,
-        blanked: false,
+        status: [],
         action: ['inc pres'],
         names: {
             increasing: ['swamp'],
@@ -663,7 +662,7 @@ const cards = [
         name: 'hydra',
         suit: 'beast',
         power: 12,
-        blanked: false,
+        status: [],
         action: ['inc pres'],
         names: {
             increasing: ['swamp'],
@@ -681,7 +680,7 @@ const cards = [
         name: 'dragon',
         suit: 'beast',
         power: 30,
-        blanked: false,
+        status: [],
         action: ['dec abs'],
         names: {
             decreasing: ['wizard'],
@@ -699,7 +698,7 @@ const cards = [
         name: 'basilisk',
         suit: 'beast',
         power: 35,
-        blanked: false,
+        status: [],
         action: ['bl'],
         names: {
             blanking: ['army', 'leader', 'beast'],
@@ -716,7 +715,7 @@ const cards = [
         name: 'fountain of life',
         suit: 'flood',
         power: 1,
-        blanked: false,
+        status: [],
         action: ['special plus'],
         names: {},
         exeptions: {
@@ -737,7 +736,7 @@ const cards = [
         name: 'island',
         suit: 'flood',
         power: 14,
-        blanked: false,
+        status: [],
         action: ['choose'],
         names: {},
         exeptions: {
@@ -754,7 +753,7 @@ const cards = [
         name: 'water elemental',
         suit: 'flood',
         power: 4,
-        blanked: false,
+        status: [],
         action: ['inc each'],
         names: {
             increasing: ['flood'],
@@ -772,7 +771,7 @@ const cards = [
         name: 'swamp',
         suit: 'flood',
         power: 18,
-        blanked: false,
+        status: [],
         action: ['dec each'],
         names: {
             decreasing: ['army', 'flame'],
@@ -790,7 +789,7 @@ const cards = [
         name: 'great flood',
         suit: 'flood',
         power: 32,
-        blanked: false,
+        status: [],
         action: ['bl'],
         names: {
             blanking: ['army', 'flame', 'land'],
@@ -807,7 +806,7 @@ const cards = [
         name: 'king',
         suit: 'leader',
         power: 8,
-        blanked: false,
+        status: [],
         action: ['special plus'],
         names: {},
         exeptions: {
@@ -827,7 +826,7 @@ const cards = [
         name: 'queen',
         suit: 'leader',
         power: 6,
-        blanked: false,
+        status: [],
         action: ['special plus'],
         names: {},
         exeptions: {
@@ -847,7 +846,7 @@ const cards = [
         name: 'warlord',
         suit: 'leader',
         power: 4,
-        blanked: false,
+        status: [],
         action: ['special plus'],
         names: {},
         exeptions: {
@@ -871,7 +870,7 @@ const cards = [
         name: 'princess',
         suit: 'leader',
         power: 2,
-        blanked: false,
+        status: [],
         action: ['inc each'],
         names: {
             increasing: ['wizard', 'leader', 'army'],
@@ -889,7 +888,7 @@ const cards = [
         name: 'empress',
         suit: 'leader',
         power: 10,
-        blanked: false,
+        status: [],
         action: ['inc each', 'dec each'],
         names: {
             increasing: ['army'],
@@ -910,7 +909,7 @@ const cards = [
         name: 'collector',
         suit: 'wizard',
         power: 7,
-        blanked: false,
+        status: [],
         action: ['special plus'],
         names: {},
         exeptions: {
@@ -937,7 +936,7 @@ const cards = [
         name: 'jester',
         suit: 'wizard',
         power: 3,
-        blanked: false,
+        status: [],
         action: ['special plus'],
         names: {},
         exeptions: {
@@ -958,7 +957,7 @@ const cards = [
         name: 'necromancer',
         suit: 'wizard',
         power: 3,
-        blanked: false,
+        status: [],
         action: [],
         names: {},
         exeptions: {
@@ -972,7 +971,7 @@ const cards = [
         name: 'elemental enchantress',
         suit: 'wizard',
         power: 5,
-        blanked: false,
+        status: [],
         action: ['inc each'],
         names: {
             increasing: ['land', 'weather', 'flood', 'flame'],
@@ -990,7 +989,7 @@ const cards = [
         name: 'beastmaster',
         suit: 'wizard',
         power: 9,
-        blanked: false,
+        status: [],
         action: ['inc each', 'clearing card'],
         names: {
             increasing: ['beast'],
@@ -1009,7 +1008,7 @@ const cards = [
         name: 'warlock lord',
         suit: 'wizard',
         power: 25,
-        blanked: false,
+        status: [],
         action: ['dec each'],
         names: {
             decreasing: ['leader', 'wizard'],
@@ -1028,7 +1027,7 @@ const cards = [
         name: 'shapeshifter',
         suit: 'wild',
         power: 0,
-        blanked: false,
+        status: [],
         action: ['choose'],
         names: {},
         exeptions: {},
@@ -1041,7 +1040,7 @@ const cards = [
         name: 'mirage',
         suit: 'wild',
         power: 0,
-        blanked: false,
+        status: [],
         action: ['choose'],
         names: {},
         exeptions: {},
@@ -1054,7 +1053,7 @@ const cards = [
         name: 'doppelganger',
         suit: 'wild',
         power: 0,
-        blanked: false,
+        status: [],
         action: ['choose'],
         names: {},
         exeptions: {},
