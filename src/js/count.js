@@ -56,21 +56,27 @@ function cardsRecovery(name) {
     if(name === 'warship') {
         hand.forEach(e => {
             if (e.suit !== 'flood') return
-            if (e.exeptions.blanking.includes('added')) {
-                const armyIndex = e.exeptions.blanking.indexOf('added')
-                e.exeptions.blanking.splice(armyIndex, 2)
-            }
-            if (e.exeptions.decreasing.includes('added')) {
-                const armyIndex = e.exeptions.decreasing.indexOf('added')
-                e.exeptions.decreasing.splice(armyIndex, 2)
+            if (e.exeptions.blanking.includes('warship')) {
+                const armyIndexBl = e.exeptions.blanking.indexOf('warship')
+                const armyIndexDec = e.exeptions.decreasing.indexOf('warship')
+                e.exeptions.blanking.splice(armyIndexBl, 2)
+                e.exeptions.decreasing.splice(armyIndexDec, 2)
             }
         })
     }
-    // blocked
-    // cleared
     // rangers
-    // protection rune
+    if(name === 'rangers') {
+        hand.forEach(e => {
+            if (e.exeptions.blanking.includes('rangers')) {
+                const armyIndexBl = e.exeptions.blanking.indexOf('rangers')
+                const armyIndexDec = e.exeptions.decreasing.indexOf('rangers')
+                e.exeptions.blanking.splice(armyIndexBl, 2)
+                e.exeptions.decreasing.splice(armyIndexDec, 2)
+            }
+        })
+    }
     // island
+    // book of changes
     // wilds!!!
 }
 

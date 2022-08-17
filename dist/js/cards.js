@@ -20,15 +20,10 @@ const cards = [
         },
         special(arr) {
             arr.forEach(e => {
-                if (e.names.decreasing) {
-                    const index = e.names.decreasing.indexOf('army')
-                    if (index !== -1) e.names.decreasing.splice(index, 1)
-                }
-                if (e.names.blanking) {
-                    const index = e.names.blanking.indexOf('army')
-                    if (index !== -1) e.names.blanking.splice(index, 1)
-                }
-            })
+                if (e.exeptions.blanking.includes('rangers')) return
+                e.exeptions.blanking.push('rangers', 'army')
+                e.exeptions.decreasing.push('rangers', 'army')
+            });
         },
     },
     {
@@ -97,7 +92,9 @@ const cards = [
             blanking: [],
         },
         exeptions: {
+            increasing: [],
             decreasing: [],
+            blanking: [],
         },
         number: {
             decreasing: 8,
@@ -435,9 +432,9 @@ const cards = [
         number: {},
         special(arr) {
             arr.forEach(e => {
-                if (e.suit !== 'flood' || e.exeptions.blanking.includes('added')) return
-                e.exeptions.blanking.push('added', 'army')
-                e.exeptions.decreasing.push('added', 'army')
+                if (e.suit !== 'flood' || e.exeptions.blanking.includes('warship')) return
+                e.exeptions.blanking.push('warship', 'army')
+                e.exeptions.decreasing.push('warship', 'army')
             });
         }
     },
