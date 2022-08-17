@@ -77,7 +77,6 @@ function cardsRecovery(name) {
     }
     // island
     // book of changes
-    // wilds!!!
 }
 
 //Карты с выбором
@@ -135,11 +134,64 @@ function onChoose(ev) {
         currentBtn.innerText = 'Cancel';
     }
     if (currentCardName === 'island') {
-
+        cardsBtn.forEach(e => {
+            e.removeEventListener('click', onCardBtnClick)
+        })
+        handNode.removeEventListener('click', onClearCard)
+        cardsInHand.forEach(e => {
+            e.addEventListener('click', onIsland)
+        })
+        //Меняю функцию кнопки
+        currentBtn = currentCard.querySelector('button')
+        currentBtn.removeEventListener('click', onChoose)
+        currentBtn.addEventListener('click', onCancelIsland)
+        currentBtn.innerText = 'Cancel';
     }
 
     
 }
+
+function onIsland(ev) {
+    ev.stopPropagation();
+    const name = ev.target.dataset.cardname;
+    const obj = hand.find(e => e.name === name);
+    if (!obj.suit === 'flood' && !obj.suit === 'flame') return
+    const ind = hand.findIndex(e => e.name === name);
+    hand[ind].names.decreasing = []
+    hand[ind].names.blanking = []
+    if (hand[ind].changed) hand[ind].changed.push('island')
+    else hand[ind].changed = ['island']
+    count(hand);
+    //Возвращаю всё как было
+    cardsBtn.forEach(e => {
+        e.addEventListener('click', onCardBtnClick)
+    })
+    cardsInHand.forEach(e => {
+        e.removeEventListener('click', onIsland)
+    })
+    currentBtn.removeEventListener('click', onCancelIsland)
+    currentBtn.addEventListener('click', onChoose)
+    currentBtn.innerText = 'Choose'
+    currentCard = '';
+    currentCardName = '';
+    currentBtn = '';
+    handNode.addEventListener('click', onClearCard)
+}
+
+function onCancelIsland(ev) {
+    ev.stopPropagation()
+    cardsBtn.forEach(e => {
+        e.addEventListener('click', onCardBtnClick)
+    })
+    cardsInHand.forEach(e => {
+        e.removeEventListener('click', onIsland)
+    })
+    currentBtn.removeEventListener('click', onCancelIsland)
+    currentBtn.addEventListener('click', onChoose)
+    currentBtn.innerText = 'Choose'
+    handNode.addEventListener('click', onClearCard)
+}
+
 function onDoppelganger(ev) {
     ev.stopPropagation();
     const name = ev.target.dataset.cardname;
