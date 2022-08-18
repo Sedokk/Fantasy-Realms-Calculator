@@ -17,13 +17,11 @@ function onClick(e) {
 
     if (hand.length > allowedAmount) return
 
-    let name;
-    
-    name = e.target.closest('.cards__card').dataset.name
+    const name = e.target.closest('.cards__card').dataset.name
 
     if (hand.some(e => e.name === name)) return
 
-    const obj = cards.find(e => e.name === name)
+    const obj = _.cloneDeep(cards.find(e => e.name === name))
     hand.push(obj)
     
     render(obj);

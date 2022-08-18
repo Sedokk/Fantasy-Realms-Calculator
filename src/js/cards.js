@@ -734,17 +734,16 @@ const cards = [
         suit: 'flood',
         power: 14,
         status: [],
-        action: ['choose'],
-        names: {},
+        action: ['choose', 'clearing card'],
+        names: {
+            clearing: [],
+        },
         exeptions: {
             increasing: [],
             decreasing: [],
             blanking: [],
         },
         number: {},
-        special(arr) {
-            console.log(this.name);
-        },
     },
     {
         name: 'water elemental',

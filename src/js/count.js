@@ -153,14 +153,11 @@ function onChoose(ev) {
 
 function onIsland(ev) {
     ev.stopPropagation();
-    const name = ev.target.dataset.cardname;
+    const name = ev.target.closest('.hand__card').dataset.cardname;
     const obj = hand.find(e => e.name === name);
     if (!obj.suit === 'flood' && !obj.suit === 'flame') return
-    const ind = hand.findIndex(e => e.name === name);
-    hand[ind].names.decreasing = []
-    hand[ind].names.blanking = []
-    if (hand[ind].changed) hand[ind].changed.push('island')
-    else hand[ind].changed = ['island']
+    const islandInd = hand.findIndex(e => e.name === 'island');
+    hand[islandInd].names.clearing = [name]
     count(hand);
     //Возвращаю всё как было
     cardsBtn.forEach(e => {
@@ -302,7 +299,7 @@ function onShapeshifterMirage(ev) {
 
 function blanking(arr) {
     arr.forEach(e => {
-        if(!e.action.includes('bl')) return
+        if(!e.action.includes('bl') || e.status.includes('cleared')) return
 
         arr.forEach(el => {
             if(e.exeptions.blanking.includes(el.name) || e.exeptions.blanking.includes(el.suit)) return;
@@ -315,7 +312,7 @@ function blanking(arr) {
 
 function blankingSelf(arr) {
     arr.forEach(e => {
-        if(!e.action.includes('bl self')) return
+        if(!e.action.includes('bl self') || e.status.includes('cleared')) return
 
         const exeptions = arr.some(el => e.exeptions.blanking.includes(el.name) || e.exeptions.blanking.includes(el.suit))
         const names = arr.some(el => e.names.blanking.includes(el.name) || e.names.blanking.includes(el.suit))
@@ -328,8 +325,7 @@ function clearing(arr) {
         if(!e.action.includes('clearing card')) return
         arr.forEach(el => {
             if(e.names.clearing.includes(el.name) || e.names.clearing.includes(el.suit)) {
-                el.blanked = false;
-                el.cleared = true;
+                el.status.push('cleared')
                 console.log('cleared: ', el.name);
             }
         })
@@ -413,6 +409,7 @@ function countingBasePower(arr) {
 function specialsPlus(arr) {
     arr.forEach(e => {
         if(!e.action.includes('special plus')) return
+        if(e.status.includes('blanked') && !e.status.includes('cleared')) return
         points += e.special(arr)
     })
 }
@@ -445,8 +442,8 @@ function count(arr) {
     }
     points = 0;
     specialsBefore(arr);
-    blanking(arr);
     clearing(arr);
+    blanking(arr);
     specialsClear(arr);
     countingBasePower(arr);
     countingInc(arr);
