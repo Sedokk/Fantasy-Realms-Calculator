@@ -10,6 +10,8 @@ let cardsInHand;
 const cardsSuits = document.querySelectorAll('.cards__suit-wrapper')
 const cardsBtn = document.querySelectorAll('.cards__card')
 const handNode = document.querySelector('.hand__card-wrapper')
+const suitsForBookWrapper = document.querySelector('.cards__book-suits')
+const suitsForBook = suitsForBookWrapper.querySelectorAll('.cards__book-suit')
 cardsBtn.forEach(e => {
     e.addEventListener('click', onCardBtnClick)
 })
@@ -75,7 +77,6 @@ function cardsRecovery(name) {
             }
         })
     }
-    // island
     // book of changes
 }
 
@@ -117,7 +118,20 @@ function onChoose(ev) {
         currentBtn.innerText = 'Cancel';
     }
     if (currentCardName === 'book of changes') {
-        
+        cardsSuits.forEach(e => e.style.display = 'none')
+        suitsForBookWrapper.style.display = 'flex';
+        handNode.removeEventListener('click', onClearCard)
+        cardsInHand.forEach(e => {
+            e.addEventListener('click', onBook)
+        })
+        suitsForBook.forEach(e => {
+            e.addEventListener('click', onBook)
+        })
+        //Меняю функцию кнопки
+        currentBtn = currentCard.querySelector('button')
+        currentBtn.removeEventListener('click', onChoose)
+        // currentBtn.addEventListener('click', onCancelBook)
+        currentBtn.innerText = 'Cancel';
     }
     if (currentCardName === 'doppelganger') {
         cardsBtn.forEach(e => {
@@ -149,6 +163,42 @@ function onChoose(ev) {
     }
 
     
+}
+
+// Объект для книги
+let bookObj = {}
+
+function onBook(ev) {
+    ev.stopPropagation();
+    // For suits
+    if (ev.target.classList.contains('cards__book-suit')) {
+        const suit = ev.target.dataset.booksuit;
+        bookObj.suit = suit;
+    }
+    // For cards
+    if (ev.target.classList.contains('hand__card')) {
+        const name = ev.target.dataset.cardname;
+        bookObj.name = name;
+    }
+
+    if(Object.keys(bookObj).length === 2) {
+        const card = hand.find(e => e.name === bookObj.name)
+        card.suit = bookObj.suit;
+        count(hand);
+        cardsInHand.forEach(e => {
+            e.removeEventListener('click', onIsland)
+        })
+        currentBtn.removeEventListener('click', onCancelIsland)
+        currentBtn.addEventListener('click', onChoose)
+        currentBtn.innerText = 'Choose'
+        currentCard = '';
+        currentCardName = '';
+        currentBtn = '';
+        handNode.addEventListener('click', onClearCard)
+        bookObj = {}
+        cardsSuits.forEach(e => e.style.display = '')
+        suitsForBookWrapper.style.display = '';
+    }
 }
 
 function onIsland(ev) {
